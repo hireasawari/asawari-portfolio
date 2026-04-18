@@ -60,13 +60,13 @@ export const Projects = () => {
               <DialogTrigger asChild>
                 <div className="cursor-pointer">
                   <TiltCard>
-                    <article className="glass rounded-2xl p-6 h-[280px] flex flex-col hover:shadow-glow-soft transition-shadow duration-500">
+                    <article className="bg-surface-container-low rounded-2xl p-6 h-[280px] flex flex-col transition-all duration-500 hover:bg-surface-container">
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <h3 className="font-display text-xl font-semibold mb-1">{p.title}</h3>
                           <p className="text-xs text-primary uppercase tracking-wider">{p.role}</p>
                         </div>
-                        <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-primary/20 clay-sm">
+                        <div className="grid h-10 w-10 place-items-center rounded-xl bg-surface-container-highest">
                           <ArrowUpRight className="h-4 w-4 text-primary" />
                         </div>
                       </div>
@@ -75,7 +75,7 @@ export const Projects = () => {
 
                       <div className="flex flex-wrap gap-1.5 mt-4">
                         {displayedTech.map((t) => (
-                          <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-muted/60 text-muted-foreground border border-border/50">
+                          <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-surface-container-high text-muted-foreground border-none">
                             {t}
                           </span>
                         ))}
@@ -89,7 +89,7 @@ export const Projects = () => {
                   </TiltCard>
                 </div>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[600px] glass-strong border-border/40">
+              <DialogContent className="sm:max-w-[600px] bg-surface-container-low border-none">
                 <DialogHeader>
                   <DialogTitle className="font-display text-2xl font-bold mb-1">{p.title}</DialogTitle>
                   <DialogDescription className="text-sm text-primary uppercase tracking-wider font-medium">
@@ -115,7 +115,7 @@ export const Projects = () => {
                   <h4 className="text-sm font-semibold mb-3">Technologies</h4>
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {p.tech.map((t) => (
-                      <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-muted text-foreground border border-border/50">
+                      <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-surface-container-high text-foreground border-none">
                         {t}
                       </span>
                     ))}
@@ -123,7 +123,7 @@ export const Projects = () => {
 
                   <div className="flex gap-3 pt-2">
                     {p.links.github && (
-                      <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground">
+                      <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                         <a href={p.links.github} target="_blank" rel="noreferrer">
                           <Github className="h-4 w-4 mr-2" /> View Code
                         </a>

@@ -24,10 +24,10 @@ export const Achievements = () => {
             return (
               <Reveal key={a.event} as="li" delay={i * 100}>
                 <div className="flex gap-5 items-start">
-                  <div className="shrink-0 grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary clay shadow-glow-soft">
-                    <Icon className="h-6 w-6 text-primary-foreground" />
+                  <div className="shrink-0 grid h-14 w-14 place-items-center rounded-2xl bg-surface-container-high">
+                    <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="glass rounded-2xl p-5 flex-1 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-soft">
+                  <div className="bg-surface-container-low rounded-2xl p-5 flex-1 transition-all duration-300 hover:-translate-y-0.5 hover:bg-surface-container">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
                       <span className="text-xs font-semibold uppercase tracking-wider text-primary">
                         {a.rank}

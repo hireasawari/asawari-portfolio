@@ -21,8 +21,8 @@ export const About = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {portfolio.stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 80}>
-            <div className="clay p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-glow group">
-              <div className="font-display text-3xl md:text-4xl font-bold text-gradient-primary mb-1 group-hover:scale-110 transition-transform">
+            <div className="bg-surface-container-low rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-surface-container group">
+              <div className="font-display text-3xl md:text-4xl font-bold text-primary mb-1 group-hover:scale-110 transition-transform">
                 {stat.value}
               </div>
               <div className="text-xs md:text-sm text-muted-foreground">{stat.label}</div>

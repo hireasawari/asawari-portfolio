@@ -23,8 +23,8 @@ export const Hero = () => {
 
       <div className="container relative z-10">
         <div className="mx-auto max-w-3xl">
-          <div className="glass-strong rounded-3xl p-8 md:p-12 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 rounded-full clay-sm px-3 py-1.5 text-xs text-muted-foreground mb-6">
+          <div className="bg-surface-container-low rounded-3xl p-8 md:p-12 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 rounded-full bg-surface-container px-3 py-1.5 text-xs text-muted-foreground mb-6">
               <MapPin className="h-3 w-3 text-primary" />
               {portfolio.location}
               <span className="mx-1 h-1 w-1 rounded-full bg-primary/60" />
@@ -54,7 +54,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 onClick={() => scrollTo("projects")}
-                className="bg-gradient-primary text-primary-foreground border-0 shadow-clay-sm hover:shadow-glow hover:-translate-y-0.5 transition-all"
+                className="bg-primary text-primary-foreground border-0 shadow-none hover:shadow-glow hover:-translate-y-0.5 transition-all"
               >
                 View Projects
                 <ArrowDown className="h-4 w-4" />
@@ -63,7 +63,7 @@ export const Hero = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="clay-sm border-border/40 hover:border-primary/40 hover:-translate-y-0.5 transition-all bg-transparent"
+                className="bg-surface-container-high border-0 hover:bg-surface-container-highest hover:-translate-y-0.5 transition-all text-foreground"
               >
                 <a href={portfolio.resume} download>
                   <Download className="h-4 w-4" />
@@ -74,7 +74,7 @@ export const Hero = () => {
                 asChild
                 size="icon"
                 variant="ghost"
-                className="clay-sm h-11 w-11 hover:-translate-y-0.5 hover:text-primary transition-all"
+                className="bg-surface-container-high h-11 w-11 hover:bg-surface-container-highest hover:-translate-y-0.5 hover:text-primary transition-all text-foreground"
               >
                 <a href={portfolio.github} target="_blank" rel="noreferrer" aria-label="GitHub">
                   <Github className="h-5 w-5" />
@@ -84,7 +84,7 @@ export const Hero = () => {
                 asChild
                 size="icon"
                 variant="ghost"
-                className="clay-sm h-11 w-11 hover:-translate-y-0.5 hover:text-primary transition-all"
+                className="bg-surface-container-high h-11 w-11 hover:bg-surface-container-highest hover:-translate-y-0.5 hover:text-primary transition-all text-foreground"
               >
                 <a href={portfolio.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                   <Linkedin className="h-5 w-5" />

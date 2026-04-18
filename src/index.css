@@ -8,82 +8,56 @@
 
 @layer base {
   :root {
-    /* Deep navy base — single-hue palette, no violet */
-    --background: 222 47% 7%;
+    /* Background anchored by surface (#131313) */
+    --background: 0 0% 7%;
     --foreground: 213 30% 96%;
 
-    --card: 222 44% 10%;
+    /* Primary Accent: Electric Cyan (#00E5FF) */
+    --primary: 186 100% 50%;
+    --primary-foreground: 0 0% 7%;
+
+    --card: 0 0% 15%; /* surface-container-high */
     --card-foreground: 213 30% 96%;
 
-    --popover: 222 44% 10%;
+    --popover: 0 0% 12%; /* surface-container */
     --popover-foreground: 213 30% 96%;
 
-    /* Navy blue accent (replaces indigo/violet) */
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 8%;
-    --primary-glow: 213 94% 72%;
-
-    --secondary: 217 60% 35%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 213 30% 96%;
 
-    --muted: 222 35% 14%;
+    --muted: 0 0% 15%;
     --muted-foreground: 215 20% 68%;
 
-    --accent: 213 94% 72%;
-    --accent-foreground: 222 47% 8%;
+    --accent: 186 100% 50%;
+    --accent-foreground: 0 0% 7%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 222 35% 18%;
-    --input: 222 35% 18%;
-    --ring: 217 91% 60%;
+    --border: 0 0% 15%; /* surface-container-high */
+    --input: 0 0% 15%;
+    --ring: 186 100% 50%;
 
     --radius: 1rem;
 
-    /* Surfaces — all navy */
-    --surface: 222 42% 12%;
-    --surface-elevated: 222 38% 15%;
-    --surface-light: 222 34% 19%;
+    /* Surface Hierarchy */
+    --surface-container-lowest: 0 0% 4%;
+    --surface-container-low: 0 0% 10%;
+    --surface: 0 0% 7%; /* #131313 */
+    --surface-container: 0 0% 12%;
+    --surface-container-high: 0 0% 15%;
+    --surface-container-highest: 0 0% 18%;
 
     /* Glass */
-    --glass-bg: 222 42% 12% / 0.55;
-    --glass-border: 213 50% 80% / 0.12;
-    --glass-highlight: 213 50% 95% / 0.06;
+    --glass-bg: 0 0% 18% / 0.8; /* surface_container_highest at 80% opacity */
+    --glass-border: transparent; /* No 1px lines */
 
-    /* Navy-only gradients (single hue family, no violet) */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 55%), hsl(213 94% 68%));
-    --gradient-accent: linear-gradient(135deg, hsl(222 60% 30%), hsl(217 91% 55%));
-    --gradient-hero: radial-gradient(ellipse at top, hsl(217 70% 18% / 0.65), transparent 60%),
-                     radial-gradient(ellipse at bottom right, hsl(222 60% 14% / 0.55), transparent 55%);
-    --gradient-text: linear-gradient(135deg, hsl(213 40% 98%), hsl(213 90% 82%));
-
-    /* Shadows — deep navy depths */
-    --clay-shadow:
-      8px 8px 24px hsl(222 60% 3% / 0.6),
-      -6px -6px 18px hsl(222 40% 22% / 0.4),
-      inset 1px 1px 1px hsl(213 50% 90% / 0.06);
-    --clay-shadow-sm:
-      4px 4px 12px hsl(222 60% 3% / 0.55),
-      -3px -3px 10px hsl(222 40% 22% / 0.35),
-      inset 1px 1px 1px hsl(213 50% 90% / 0.05);
-    --clay-shadow-inset:
-      inset 4px 4px 10px hsl(222 60% 3% / 0.55),
-      inset -4px -4px 10px hsl(222 40% 22% / 0.35);
-    --shadow-glow: 0 0 60px hsl(217 91% 60% / 0.35);
-    --shadow-glow-soft: 0 0 80px hsl(217 91% 60% / 0.18);
+    /* Shadows */
+    --shadow-glow: 0 0 60px hsl(186 100% 50% / 0.35);
+    --shadow-glow-soft: 0 0 80px hsl(186 100% 50% / 0.18);
 
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-
-    --sidebar-background: 222 44% 10%;
-    --sidebar-foreground: 213 30% 96%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 222 47% 8%;
-    --sidebar-accent: 222 35% 14%;
-    --sidebar-accent-foreground: 213 30% 96%;
-    --sidebar-border: 222 35% 18%;
-    --sidebar-ring: 217 91% 60%;
   }
 
   html {
@@ -94,8 +68,6 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
-    background-image: var(--gradient-hero);
-    background-attachment: fixed;
     overflow-x: hidden;
   }
 
@@ -109,10 +81,10 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: hsl(var(--surface-container-lowest));
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted));
+    background: hsl(var(--surface-container-high));
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -128,55 +100,25 @@
 
 @layer components {
   .glass {
-    background: hsl(var(--glass-bg));
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow:
-      0 8px 32px hsl(230 50% 4% / 0.4),
-      inset 0 1px 0 hsl(var(--glass-highlight));
+    background: hsl(var(--surface-container-highest) / 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
   }
 
   .glass-strong {
-    background: hsl(230 32% 14% / 0.75);
-    backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow:
-      0 12px 40px hsl(230 50% 4% / 0.5),
-      inset 0 1px 0 hsl(var(--glass-highlight));
-  }
-
-  .clay {
-    background: hsl(var(--surface));
-    border-radius: var(--radius);
-    box-shadow: var(--clay-shadow);
-  }
-
-  .clay-sm {
-    background: hsl(var(--surface));
-    border-radius: calc(var(--radius) - 0.25rem);
-    box-shadow: var(--clay-shadow-sm);
-  }
-
-  .clay-inset {
-    background: hsl(var(--surface));
-    border-radius: var(--radius);
-    box-shadow: var(--clay-shadow-inset);
+    background: hsl(var(--surface-container-highest) / 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
   }
 
   .text-gradient {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: hsl(var(--primary));
   }
 
   .text-gradient-primary {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: hsl(var(--primary));
   }
 
   .glow-on-hover {

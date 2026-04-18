@@ -54,8 +54,11 @@ export default {
         },
         surface: {
           DEFAULT: "hsl(var(--surface))",
-          elevated: "hsl(var(--surface-elevated))",
-          light: "hsl(var(--surface-light))",
+          lowest: "hsl(var(--surface-container-lowest))",
+          low: "hsl(var(--surface-container-low))",
+          container: "hsl(var(--surface-container))",
+          high: "hsl(var(--surface-container-high))",
+          highest: "hsl(var(--surface-container-highest))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

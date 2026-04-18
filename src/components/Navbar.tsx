@@ -52,8 +52,8 @@ export const Navbar = () => {
     >
       <nav
         className={cn(
-          "glass rounded-2xl px-4 py-3 flex items-center justify-between transition-all duration-500",
-          scrolled && "glass-strong shadow-glow-soft",
+          "bg-surface-container-highest/80 backdrop-blur-[20px] rounded-2xl px-4 py-3 flex items-center justify-between transition-all duration-500",
+          scrolled && "shadow-glow-soft",
         )}
       >
         <button
@@ -61,7 +61,7 @@ export const Navbar = () => {
           className="flex items-center gap-2 group"
           aria-label="Home"
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary font-display text-sm font-bold text-primary-foreground shadow-clay-sm transition-transform group-hover:scale-105">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-sm font-bold text-primary-foreground shadow-none transition-transform group-hover:scale-105">
             SG
           </span>
           <span className="hidden sm:inline font-display font-semibold tracking-tight">
@@ -82,7 +82,7 @@ export const Navbar = () => {
                 {l.label}
                 <span
                   className={cn(
-                    "absolute left-1/2 -bottom-0.5 h-1 w-1 -translate-x-1/2 rounded-full bg-gradient-primary transition-all duration-300",
+                    "absolute left-1/2 -bottom-0.5 h-1 w-1 -translate-x-1/2 rounded-full bg-primary transition-all duration-300",
                     active === l.id ? "opacity-100 scale-100" : "opacity-0 scale-50",
                   )}
                 />
@@ -92,7 +92,7 @@ export const Navbar = () => {
         </ul>
 
         <button
-          className="md:hidden grid h-9 w-9 place-items-center rounded-lg clay-sm"
+          className="md:hidden grid h-9 w-9 place-items-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -101,7 +101,7 @@ export const Navbar = () => {
       </nav>
 
       {open && (
-        <div className="md:hidden mt-2 glass-strong rounded-2xl p-2 animate-fade-in">
+        <div className="md:hidden mt-2 bg-surface-container-highest/80 backdrop-blur-[20px] rounded-2xl p-2 animate-fade-in">
           <ul className="flex flex-col">
             {links.map((l) => (
               <li key={l.id}>

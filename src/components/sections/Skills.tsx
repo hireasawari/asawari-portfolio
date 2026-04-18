@@ -14,7 +14,7 @@ export const Skills = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {portfolio.skills.map((group, i) => (
           <Reveal key={group.category} delay={i * 80}>
-            <div className="glass rounded-2xl p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-soft">
+            <div className="bg-surface-container-low rounded-2xl p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:bg-surface-container">
               <h3 className="font-display text-sm uppercase tracking-wider text-primary mb-4">
                 {group.category}
               </h3>
@@ -22,7 +22,7 @@ export const Skills = () => {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="clay-sm px-3 py-1.5 text-xs font-medium text-foreground/90 transition-all duration-300 hover:-translate-y-0.5 hover:text-primary cursor-default"
+                    className="bg-surface-container-high px-3 py-1.5 text-xs font-medium text-foreground/90 transition-all duration-300 hover:-translate-y-0.5 hover:text-primary rounded-md cursor-default"
                   >
                     {item}
                   </span>
