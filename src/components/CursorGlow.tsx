@@ -24,7 +24,7 @@ export const CursorGlow = () => {
       style={{
         transform: `translate(${pos.x - 210}px, ${pos.y - 210}px)`,
         background:
-          "radial-gradient(circle, hsl(240 90% 70% / 0.25), hsl(280 80% 65% / 0.1) 40%, transparent 70%)",
+          "radial-gradient(circle, hsl(217 91% 60% / 0.28), hsl(213 94% 72% / 0.1) 40%, transparent 70%)",
       }}
     />
   );
