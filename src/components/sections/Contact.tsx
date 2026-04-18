@@ -13,7 +13,7 @@ const items = [
 
 export const Contact = () => {
   return (
-    <section id="contact" className="container py-24 md:py-32">
+    <section id="contact" className="container py-16 md:py-24">
       <SectionHeader
         eyebrow="Get in touch"
         title="Let's build something together"

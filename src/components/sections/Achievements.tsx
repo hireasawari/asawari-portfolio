@@ -7,7 +7,7 @@ const icons = [Trophy, Medal, Award];
 
 export const Achievements = () => {
   return (
-    <section id="achievements" className="container py-24 md:py-32">
+    <section id="achievements" className="container py-16 md:py-24">
       <SectionHeader
         eyebrow="Recognition"
         title="Achievements"

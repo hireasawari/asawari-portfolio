@@ -11,7 +11,7 @@ export const SectionHeader = ({ eyebrow, title, description }: { eyebrow: string
 
 export const About = () => {
   return (
-    <section id="about" className="container py-24 md:py-32">
+    <section id="about" className="container py-16 md:py-24">
       <SectionHeader
         eyebrow="About"
         title="Builder. Engineer. Curious mind."

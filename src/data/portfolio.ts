@@ -3,10 +3,10 @@ export const portfolio = {
   role: "Software Engineer · AI/ML Builder",
   tagline: "I build AI-powered products and full-stack experiences that ship.",
   location: "Mumbai, India",
-  email: "sahilgupta.work@gmail.com",
-  phone: "+91 90000 00000",
-  github: "https://github.com/sahilgupta",
-  linkedin: "https://linkedin.com/in/sahilgupta",
+  email: "sahil160506@gmail.com",
+  phone: "+91 7038711591",
+  github: "https://github.com/Sahil-Gupta-16",
+  linkedin: "https://linkedin.com/in/sahil-gupta-6b0069290",
   resume: "/Sahil_Gupta_Resume.pdf",
 
   about:
@@ -14,8 +14,8 @@ export const portfolio = {
 
   stats: [
     { label: "Hackathon Wins", value: "3+" },
-    { label: "Projects Shipped", value: "10+" },
-    { label: "Tech Stack", value: "20+" },
+    { label: "Projects Shipped", value: "5+" },
+    { label: "Tech Stack", value: "15+" },
     { label: "Year of Study", value: "3rd" },
   ],
 

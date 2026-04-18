@@ -4,7 +4,7 @@ import { portfolio } from "@/data/portfolio";
 
 export const Skills = () => {
   return (
-    <section id="skills" className="container py-24 md:py-32">
+    <section id="skills" className="container py-16 md:py-24">
       <SectionHeader
         eyebrow="Toolkit"
         title="Skills & Stack"
