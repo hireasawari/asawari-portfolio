@@ -8,90 +8,82 @@
 
 @layer base {
   :root {
-    /* Deep navy base */
-    --background: 230 38% 8%;
-    --foreground: 220 30% 96%;
+    /* Deep navy base — single-hue palette, no violet */
+    --background: 222 47% 7%;
+    --foreground: 213 30% 96%;
 
-    --card: 230 32% 11%;
-    --card-foreground: 220 30% 96%;
+    --card: 222 44% 10%;
+    --card-foreground: 213 30% 96%;
 
-    --popover: 230 32% 11%;
-    --popover-foreground: 220 30% 96%;
+    --popover: 222 44% 10%;
+    --popover-foreground: 213 30% 96%;
 
-    /* Soft indigo accent */
-    --primary: 240 84% 72%;
-    --primary-foreground: 230 40% 10%;
-    --primary-glow: 240 90% 78%;
+    /* Navy blue accent (replaces indigo/violet) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 8%;
+    --primary-glow: 213 94% 72%;
 
-    /* Teal accent */
-    --secondary: 180 70% 60%;
-    --secondary-foreground: 230 40% 10%;
+    --secondary: 217 60% 35%;
+    --secondary-foreground: 213 30% 96%;
 
-    --muted: 230 25% 16%;
-    --muted-foreground: 220 14% 65%;
+    --muted: 222 35% 14%;
+    --muted-foreground: 215 20% 68%;
 
-    --accent: 280 70% 70%;
-    --accent-foreground: 230 40% 10%;
+    --accent: 213 94% 72%;
+    --accent-foreground: 222 47% 8%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 230 25% 20%;
-    --input: 230 25% 20%;
-    --ring: 240 84% 72%;
+    --border: 222 35% 18%;
+    --input: 222 35% 18%;
+    --ring: 217 91% 60%;
 
     --radius: 1rem;
 
-    /* Surfaces for claymorphism */
-    --surface: 230 30% 13%;
-    --surface-elevated: 230 28% 16%;
-    --surface-light: 230 26% 20%;
+    /* Surfaces — all navy */
+    --surface: 222 42% 12%;
+    --surface-elevated: 222 38% 15%;
+    --surface-light: 222 34% 19%;
 
     /* Glass */
-    --glass-bg: 230 30% 14% / 0.55;
-    --glass-border: 220 40% 80% / 0.12;
-    --glass-highlight: 220 40% 95% / 0.06;
+    --glass-bg: 222 42% 12% / 0.55;
+    --glass-border: 213 50% 80% / 0.12;
+    --glass-highlight: 213 50% 95% / 0.06;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(240 84% 68%), hsl(280 70% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(180 70% 55%), hsl(240 84% 70%));
-    --gradient-hero: radial-gradient(ellipse at top, hsl(240 60% 22% / 0.6), transparent 60%),
-                     radial-gradient(ellipse at bottom right, hsl(280 60% 22% / 0.4), transparent 55%);
-    --gradient-text: linear-gradient(135deg, hsl(220 30% 98%), hsl(240 80% 85%));
+    /* Navy-only gradients (single hue family, no violet) */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 55%), hsl(213 94% 68%));
+    --gradient-accent: linear-gradient(135deg, hsl(222 60% 30%), hsl(217 91% 55%));
+    --gradient-hero: radial-gradient(ellipse at top, hsl(217 70% 18% / 0.65), transparent 60%),
+                     radial-gradient(ellipse at bottom right, hsl(222 60% 14% / 0.55), transparent 55%);
+    --gradient-text: linear-gradient(135deg, hsl(213 40% 98%), hsl(213 90% 82%));
 
-    /* Shadows — claymorphism dual-direction */
+    /* Shadows — deep navy depths */
     --clay-shadow:
-      8px 8px 24px hsl(230 50% 4% / 0.55),
-      -6px -6px 18px hsl(230 30% 22% / 0.4),
-      inset 1px 1px 1px hsl(220 40% 90% / 0.06);
+      8px 8px 24px hsl(222 60% 3% / 0.6),
+      -6px -6px 18px hsl(222 40% 22% / 0.4),
+      inset 1px 1px 1px hsl(213 50% 90% / 0.06);
     --clay-shadow-sm:
-      4px 4px 12px hsl(230 50% 4% / 0.5),
-      -3px -3px 10px hsl(230 30% 22% / 0.35),
-      inset 1px 1px 1px hsl(220 40% 90% / 0.05);
+      4px 4px 12px hsl(222 60% 3% / 0.55),
+      -3px -3px 10px hsl(222 40% 22% / 0.35),
+      inset 1px 1px 1px hsl(213 50% 90% / 0.05);
     --clay-shadow-inset:
-      inset 4px 4px 10px hsl(230 50% 4% / 0.5),
-      inset -4px -4px 10px hsl(230 30% 22% / 0.35);
-    --shadow-glow: 0 0 60px hsl(240 84% 65% / 0.35);
-    --shadow-glow-soft: 0 0 80px hsl(240 84% 65% / 0.18);
+      inset 4px 4px 10px hsl(222 60% 3% / 0.55),
+      inset -4px -4px 10px hsl(222 40% 22% / 0.35);
+    --shadow-glow: 0 0 60px hsl(217 91% 60% / 0.35);
+    --shadow-glow-soft: 0 0 80px hsl(217 91% 60% / 0.18);
 
-    /* Transitions */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 
-    --sidebar-background: 230 32% 11%;
-    --sidebar-foreground: 220 30% 96%;
-    --sidebar-primary: 240 84% 72%;
-    --sidebar-primary-foreground: 230 40% 10%;
-    --sidebar-accent: 230 25% 16%;
-    --sidebar-accent-foreground: 220 30% 96%;
-    --sidebar-border: 230 25% 20%;
-    --sidebar-ring: 240 84% 72%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+    --sidebar-background: 222 44% 10%;
+    --sidebar-foreground: 213 30% 96%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 222 35% 14%;
+    --sidebar-accent-foreground: 213 30% 96%;
+    --sidebar-border: 222 35% 18%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   html {
