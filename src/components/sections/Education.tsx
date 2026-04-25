@@ -8,9 +8,9 @@ export const Education = () => {
   return (
     <section id="education" className="container py-16 md:py-24">
       <SectionHeader
-        eyebrow="Background"
-        title="Education & Leadership"
-        description="Where I'm learning the fundamentals — and how I show up beyond the classroom."
+        eyebrow="My Journey"
+        title="Education & Experience"
+        description="Where I study, what I've led, and how I contribute beyond coursework."
       />
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -45,7 +45,7 @@ export const Education = () => {
               </div>
               <div>
                 <h3 className="font-display text-lg font-semibold">Leadership & Community</h3>
-                <p className="text-sm text-muted-foreground">Beyond the classroom</p>
+                <p className="text-sm text-muted-foreground">Beyond the degree</p>
               </div>
             </div>
 

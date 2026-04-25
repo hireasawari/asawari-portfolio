@@ -39,21 +39,11 @@ export const Projects = () => {
 
   return (
     <section id="projects" className="container py-16 md:py-24">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-        <SectionHeader
-          eyebrow="Selected Work"
-          title="Projects I'm proud of"
-          description="A few things I've shipped — from AI agents to civic-tech platforms."
-        />
-        <Reveal delay={200}>
-          <Button asChild variant="ghost" className="text-foreground hover:text-primary hover:bg-transparent transition-all group px-0">
-            <Link to="/projects">
-              View All Projects
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </Reveal>
-      </div>
+      <SectionHeader
+        eyebrow="Featured Builds"
+        title="Work I'm proud of"
+        description="A curated set of things I've built — ML pipelines, civic tools, and AI systems."
+      />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredProjects.map((project, i) => {
@@ -99,6 +89,17 @@ export const Projects = () => {
           );
         })}
       </div>
+
+      <Reveal delay={150}>
+        <div className="flex justify-center mt-10">
+          <Button asChild variant="ghost" className="text-foreground hover:text-primary hover:bg-transparent transition-all group">
+            <Link to="/projects">
+              See All Projects
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+        </div>
+      </Reveal>
     </section>
   );
 };

@@ -15,9 +15,9 @@ export const Contact = () => {
   return (
     <section id="contact" className="container py-16 md:py-24">
       <SectionHeader
-        eyebrow="Get in touch"
-        title="Let's build something together"
-        description="I'm always open to interesting problems, internships, and collaborations."
+        eyebrow="Reach Out"
+        title="Got something in mind?"
+        description="Always keen on great problems, internships, and meaningful collabs — drop me a line."
       />
 
       <Reveal>
@@ -55,7 +55,7 @@ export const Contact = () => {
             >
               <a href={portfolio.resume} download>
                 <Download className="h-4 w-4" />
-                Download Resume
+                Download CV
               </a>
             </Button>
             <Button
@@ -66,7 +66,7 @@ export const Contact = () => {
             >
               <a href={`mailto:${portfolio.email}`}>
                 <Mail className="h-4 w-4" />
-                Send a message
+                Say hello
               </a>
             </Button>
           </div>

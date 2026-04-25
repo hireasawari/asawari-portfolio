@@ -28,11 +28,11 @@ export const Hero = () => {
               <MapPin className="h-3 w-3 text-primary" />
               {portfolio.location}
               <span className="mx-1 h-1 w-1 rounded-full bg-primary/60" />
-              <span className="text-primary">Available for opportunities</span>
+              <span className="text-primary">Open to new roles</span>
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] mb-4">
-              <span className="text-gradient">Hi, I'm</span>{" "}
+              <span className="text-gradient">Hey, I'm</span>{" "}
               <span className="text-gradient-primary">Asawari Hire</span>
             </h1>
 
@@ -43,10 +43,10 @@ export const Hero = () => {
             <p className="text-base md:text-lg text-foreground/80 mb-8 min-h-[1.75rem]">
               <Typewriter
                 words={[
-                  "I turn raw data into insights.",
-                  "I build AI-powered solutions.",
-                  "I won Datathon 2025 at ARTIMAS.",
-                  "I ship data-driven products.",
+                  "Raw data → real insights.",
+                  "Building with AI, shipping fast.",
+                  "Datathon 2025 winner @ ARTIMAS.",
+                  "Data-first. Always.",
                 ]}
               />
             </p>
@@ -57,7 +57,7 @@ export const Hero = () => {
                 onClick={() => scrollTo("projects")}
                 className="bg-primary text-primary-foreground border-0 shadow-none hover:shadow-glow hover:-translate-y-0.5 transition-all"
               >
-                View Projects
+                See My Work
                 <ArrowDown className="h-4 w-4" />
               </Button>
               <Button
@@ -68,7 +68,7 @@ export const Hero = () => {
               >
                 <a href={portfolio.resume} download>
                   <Download className="h-4 w-4" />
-                  Resume
+                  Get CV
                 </a>
               </Button>
               <Button

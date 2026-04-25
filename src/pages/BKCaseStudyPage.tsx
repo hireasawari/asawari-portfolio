@@ -6,7 +6,7 @@ import { ArrowLeft, Palette, Target, Layers, CheckCircle2, Sparkles, ExternalLin
 import { Link, Navigate } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
-const BK = "#D62300";
+const BK = "#f97316";
 
 // ─── Reading Progress ──────────────────────────────────────────────────────────
 function ReadingProgress() {
@@ -52,7 +52,7 @@ function EditorialLabel({ icon: Icon, title, index, isEven }: { icon: any; title
         Section {String(index + 1).padStart(2, "0")}
       </span>
       {/* Rule */}
-      <div className={`h-px w-16 z-10 mt-1 bg-gradient-to-r ${isEven ? "from-transparent to-[#D62300]/50" : "from-[#D62300]/50 to-transparent"}`} />
+      <div className={`h-px w-16 z-10 mt-1 bg-gradient-to-r ${isEven ? "from-transparent to-[#f97316]/50" : "from-[#f97316]/50 to-transparent"}`} />
     </div>
   );
 }
@@ -189,9 +189,9 @@ function ScreenRow({ screen, index, onPreview }: { screen: DesignScreen; index: 
   // Right column: After phone + improvements
   const afterCol = (
     <div className="flex flex-col justify-start">
-      <div className="relative rounded-2xl bg-surface-container-low border border-white/5 overflow-hidden transition-all duration-500 hover:border-[#D62300]/20 group/card">
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#D62300]/4 transition-all duration-500 pointer-events-none" />
-        <div className="absolute top-0 bottom-0 left-0 w-1 transition-all duration-500 opacity-50 group-hover/card:opacity-100 bg-gradient-to-b from-[#D62300]/60 via-[#D62300]/20 to-transparent" />
+      <div className="relative rounded-2xl bg-surface-container-low border border-white/5 overflow-hidden transition-all duration-500 hover:border-[#f97316]/20 group/card">
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#f97316]/4 transition-all duration-500 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 left-0 w-1 transition-all duration-500 opacity-50 group-hover/card:opacity-100 bg-gradient-to-b from-[#f97316]/60 via-[#f97316]/20 to-transparent" />
 
         {/* After badge + screen number */}
         <div className="flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4">
@@ -246,11 +246,11 @@ function ScreenRow({ screen, index, onPreview }: { screen: DesignScreen; index: 
           {beforeCol}
           {/* Arrow divider */}
           <div className="hidden md:flex flex-col items-center self-stretch gap-2 py-16">
-            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
+            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#f97316]/20 to-transparent" />
             <div className="grid h-8 w-8 place-items-center rounded-full border shrink-0" style={{ background: `${BK}18`, borderColor: `${BK}40` }}>
               <ArrowRight className="h-4 w-4" style={{ color: BK }} />
             </div>
-            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
+            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#f97316]/20 to-transparent" />
           </div>
           {afterCol}
         </div>
@@ -326,12 +326,12 @@ const BKCaseStudyPage = () => {
       {/* Background */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.025]"
-          style={{ backgroundImage: "radial-gradient(circle, hsl(10 85% 45%) 1px, transparent 1px)", backgroundSize: "44px 44px" }} />
+          style={{ backgroundImage: "radial-gradient(circle, hsl(28 95% 55%) 1px, transparent 1px)", backgroundSize: "44px 44px" }} />
         <motion.div className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(10 85% 45% / 0.07) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, hsl(28 95% 55% / 0.07) 0%, transparent 70%)" }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} />
         <motion.div className="absolute bottom-1/3 -left-32 w-96 h-96 rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(10 85% 45% / 0.05) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, hsl(28 95% 55% / 0.05) 0%, transparent 70%)" }}
           animate={{ x: [0, -20, 0], y: [0, 30, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }} />
       </div>
 
@@ -395,10 +395,10 @@ const BKCaseStudyPage = () => {
             <div className="w-full h-px bg-white/5 mb-10" />
             <div className="grid md:grid-cols-[1fr_2px_3fr] gap-8 md:gap-16 items-start">
               <EditorialLabel icon={Layers} title="Overview" index={0} isEven={true} />
-              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D62300]/15 to-transparent" />
-              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#D62300]/20 transition-all duration-500 group/card">
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#D62300]/4 transition-all duration-500 pointer-events-none" />
-                <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#D62300]/60 via-[#D62300]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
+              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#f97316]/15 to-transparent" />
+              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#f97316]/20 transition-all duration-500 group/card">
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#f97316]/4 transition-all duration-500 pointer-events-none" />
+                <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#f97316]/60 via-[#f97316]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
                 <p className={leadText}>{d.overview}</p>
               </div>
             </div>
@@ -408,9 +408,9 @@ const BKCaseStudyPage = () => {
           <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <div className="w-full h-px bg-white/5 mb-10" />
             <div className="grid md:grid-cols-[3fr_2px_1fr] gap-8 md:gap-16 items-start">
-              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#D62300]/20 transition-all duration-500 group/card md:order-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#D62300]/4 transition-all duration-500 pointer-events-none" />
-                <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-[#D62300]/60 via-[#D62300]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
+              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#f97316]/20 transition-all duration-500 group/card md:order-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#f97316]/4 transition-all duration-500 pointer-events-none" />
+                <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-[#f97316]/60 via-[#f97316]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
                 <ul className="space-y-4">
                   {d.problem.map((p, i) => (
                     <motion.li key={i} initial={{ opacity: 0, x: -14 }} whileInView={{ opacity: 1, x: 0 }}
@@ -422,7 +422,7 @@ const BKCaseStudyPage = () => {
                   ))}
                 </ul>
               </div>
-              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D62300]/15 to-transparent md:order-2" />
+              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#f97316]/15 to-transparent md:order-2" />
               <div className="md:order-3"><EditorialLabel icon={Target} title="The Problem" index={1} isEven={false} /></div>
             </div>
           </motion.section>
@@ -432,10 +432,10 @@ const BKCaseStudyPage = () => {
             <div className="w-full h-px bg-white/5 mb-10" />
             <div className="grid md:grid-cols-[1fr_2px_3fr] gap-8 md:gap-16 items-start">
               <EditorialLabel icon={Palette} title="Design Process" index={2} isEven={true} />
-              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D62300]/15 to-transparent" />
-              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#D62300]/20 transition-all duration-500 group/card">
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#D62300]/4 transition-all duration-500 pointer-events-none" />
-                <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#D62300]/60 via-[#D62300]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
+              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#f97316]/15 to-transparent" />
+              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#f97316]/20 transition-all duration-500 group/card">
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#f97316]/4 transition-all duration-500 pointer-events-none" />
+                <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#f97316]/60 via-[#f97316]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
                 <div className="flex flex-col">
                   {d.designProcess.map((step, i) => (
                     <ProcessStep key={step.label} step={i + 1} label={step.label} description={step.description} index={i} total={d.designProcess.length} />
@@ -487,21 +487,21 @@ const BKCaseStudyPage = () => {
           <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <div className="w-full h-px bg-white/5 mb-10" />
             <div className="grid md:grid-cols-[3fr_2px_1fr] gap-8 md:gap-16 items-start">
-              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#D62300]/20 transition-all duration-500 group/card md:order-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#D62300]/4 transition-all duration-500 pointer-events-none" />
-                <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-[#D62300]/60 via-[#D62300]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
+              <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden hover:border-[#f97316]/20 transition-all duration-500 group/card md:order-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover/card:from-[#f97316]/4 transition-all duration-500 pointer-events-none" />
+                <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-[#f97316]/60 via-[#f97316]/20 to-transparent opacity-50 group-hover/card:opacity-100 transition-all duration-500" />
                 <div className="grid sm:grid-cols-2 gap-4">
                   {d.solution.map((item, i) => (
                     <motion.div key={i} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.07 }}
-                      className="flex items-start gap-3 rounded-xl border border-white/5 bg-surface-container-high/40 p-4 hover:border-[#D62300]/20 transition-colors">
+                      className="flex items-start gap-3 rounded-xl border border-white/5 bg-surface-container-high/40 p-4 hover:border-[#f97316]/20 transition-colors">
                       <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" style={{ color: BK }} />
                       <span className={bodyText}>{item}</span>
                     </motion.div>
                   ))}
                 </div>
               </div>
-              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D62300]/15 to-transparent md:order-2" />
+              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#f97316]/15 to-transparent md:order-2" />
               <div className="md:order-3"><EditorialLabel icon={CheckCircle2} title="The Solution" index={4} isEven={false} /></div>
             </div>
           </motion.section>
@@ -511,12 +511,12 @@ const BKCaseStudyPage = () => {
             <div className="w-full h-px bg-white/5 mb-10" />
             <div className="grid md:grid-cols-[1fr_2px_3fr] gap-8 md:gap-16 items-start">
               <EditorialLabel icon={Sparkles} title="Highlights" index={5} isEven={true} />
-              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D62300]/15 to-transparent" />
+              <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#f97316]/15 to-transparent" />
               <div className="flex flex-wrap gap-3 py-4">
                 {d.designHighlights.map((h, i) => (
                   <motion.span key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }}
-                    className="px-5 py-2.5 rounded-full bg-surface-container-low border border-white/8 text-sm font-medium text-foreground/75 hover:border-[#D62300]/30 hover:text-foreground transition-all cursor-default">
+                    className="px-5 py-2.5 rounded-full bg-surface-container-low border border-white/8 text-sm font-medium text-foreground/75 hover:border-[#f97316]/30 hover:text-foreground transition-all cursor-default">
                     {h}
                   </motion.span>
                 ))}

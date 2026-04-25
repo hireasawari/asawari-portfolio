@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="container py-10 mt-12 bg-surface-container-lowest rounded-t-[3rem]">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} {portfolio.name}. Crafted with care.
+          © {new Date().getFullYear()} {portfolio.name}. Made with intention.
         </p>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

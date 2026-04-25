@@ -6,9 +6,9 @@ export const Skills = () => {
   return (
     <section id="skills" className="container py-16 md:py-24">
       <SectionHeader
-        eyebrow="Toolkit"
-        title="Skills & Stack"
-        description="The tools I reach for when turning ideas into shipped products."
+        eyebrow="My Arsenal"
+        title="Skills & Tech Stack"
+        description="Technologies and frameworks I use to take ideas from concept to deployment."
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">

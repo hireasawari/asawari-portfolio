@@ -13,8 +13,8 @@ export const About = () => {
   return (
     <section id="about" className="container py-16 md:py-24">
       <SectionHeader
-        eyebrow="About"
-        title="Builder. Engineer. Curious mind."
+        eyebrow="Who I Am"
+        title="Engineer. Analyst. Relentlessly curious."
         description={portfolio.about}
       />
 

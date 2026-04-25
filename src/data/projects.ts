@@ -133,45 +133,45 @@ export const projectsData: Project[] = [
   {
     id: "burger-king-redesign",
     title: "Burger King App Redesign – UI/UX Case Study",
-    shortDescription: "A complete redesign of the Burger King mobile app focusing on usability, visual hierarchy, and a smoother ordering experience.",
+    shortDescription: "End-to-end mobile app redesign for Burger King, targeting clearer navigation, stronger visual hierarchy, and a friction-free ordering flow.",
     techStack: ["Figma", "UI/UX Design", "User Research", "Prototyping", "Design Systems"],
     thumbnail: "/images/bk/thumbnail.png",
     featured: true,
     visible: true,
     type: "design",
     details: {
-      overview: "This project is a UI/UX redesign of the Burger King mobile application aimed at improving usability, simplifying navigation, and enhancing the overall ordering experience. The redesign focuses on modern design principles, better visual hierarchy, and a smoother user journey.",
+      overview: "A ground-up UI/UX overhaul of the Burger King mobile app, centered on cutting friction from the ordering journey. The work addressed structural navigation issues, inconsistent visual language, and weak information hierarchy — replacing them with a focused, modern experience built around clear user intent.",
 
       problem: [
-        "Cluttered interface with poor visual hierarchy making it hard to find items",
-        "Confusing navigation flow with too many steps to complete an order",
-        "Lack of clear call-to-action buttons leading to abandoned carts",
-        "Inconsistent design language and typography across screens",
-        "Poor mobile usability and limited accessibility support"
+        "Overwhelming screen layouts with no clear focal point, making item discovery frustrating",
+        "Multi-step ordering process with redundant screens that caused drop-offs mid-flow",
+        "Weak or missing CTAs leaving users unsure of the next action at every stage",
+        "Fragmented visual language — mismatched type scales, spacing, and color usage",
+        "Touch targets too small for comfortable single-hand operation on mobile"
       ],
 
       designProcess: [
-        { label: "Research", description: "Conducted heuristic analysis of the existing app and identified key user pain points through competitive benchmarking." },
-        { label: "Wireframes", description: "Created low-fidelity wireframes to restructure the layout and simplify the core ordering flow." },
-        { label: "UI Design", description: "Designed high-fidelity screens with improved visual hierarchy, spacing, and a consistent design system." },
-        { label: "Prototyping", description: "Built an interactive prototype in Figma to validate the new user flow end-to-end." },
-        { label: "Iteration", description: "Refined designs based on feedback, focusing on micro-interactions and edge cases in the ordering flow." }
+        { label: "Discovery", description: "Ran a heuristic audit of the live app and mapped competitor approaches to surface structural gaps and missed UX conventions." },
+        { label: "Wireframing", description: "Sketched low-fidelity layouts to rethink the information architecture and cut down the ordering flow to its essentials." },
+        { label: "Visual Design", description: "Built high-fidelity screens applying a unified component system with deliberate spacing, contrast, and type hierarchy." },
+        { label: "Prototype", description: "Assembled a clickable Figma prototype covering the full purchase journey to verify flow logic before finalising visuals." },
+        { label: "Refinement", description: "Iterated on feedback by fine-tuning transitions, handling edge states, and pressure-testing the checkout path." }
       ],
 
       solution: [
-        "Introduced a clean and minimal interface that highlights food imagery",
-        "Streamlined navigation with clear sections and persistent bottom tab bar",
-        "Enhanced call-to-action visibility with high-contrast primary buttons",
-        "Standardized design system — spacing, typography, and color tokens",
-        "Optimized touch targets and layout for one-handed mobile use"
+        "Simplified, image-led interface that lets the food speak rather than compete with UI clutter",
+        "Persistent bottom navigation with clearly labelled sections for zero-confusion wayfinding",
+        "High-contrast, prominently placed action buttons that guide users at every decision point",
+        "Unified token-based design system covering color, spacing, and typography across all screens",
+        "Generous touch targets and thumb-friendly layout tuned for real-world one-handed use"
       ],
 
       designHighlights: [
-        "Modern minimal visual design with bold food photography",
-        "Improved accessibility with WCAG-compliant contrast ratios",
-        "Reduced steps to checkout from 6 to 3",
-        "Consistent component library for scalability",
-        "Mobile-first with responsive layout considerations"
+        "Bold visual style anchored by full-bleed food photography",
+        "Accessible color and contrast meeting WCAG AA requirements throughout",
+        "Checkout path shortened from 6 screens to 3",
+        "Shared component library enabling consistent scale across future screens",
+        "Designed mobile-first with layout decisions grounded in device ergonomics"
       ],
 
       screens: [
@@ -179,66 +179,64 @@ export const projectsData: Project[] = [
           src: "/images/bk/screen_home.png",
           before: "/images/bk/before/screen_home.png",
           label: "Home Screen",
-          description: "Redesigned home screen with featured items, quick access categories, and a cleaner hero banner that puts food front and center.",
+          description: "Reworked landing screen leading with a strong hero moment, surfacing top categories immediately below, and cutting everything that competed for attention.",
           improved: [
-            "Replaced cluttered promo grid with a focused hero + category strip",
-            "Added a persistent search bar for faster item discovery",
-            "Reduced visual noise by 60% — clearer white space and hierarchy",
-            "Prominent 'Order Now' CTA above the fold"
+            "Swapped a busy promotional grid for a focused hero banner paired with a tight category row",
+            "Pinned search bar at the top so users can jump straight to what they want",
+            "Stripped unnecessary elements — visual noise down roughly 60%, breathing room up",
+            "Primary order CTA placed above the fold and always in view"
           ]
         },
         {
           src: "/images/bk/screen_menu.png",
           before: "/images/bk/before/screen_menu.png",
           label: "Menu & Browse",
-          description: "Restructured menu layout with sticky category tabs and better item cards that surface nutritional info and customisation options.",
+          description: "Restructured the menu around sticky category tabs and visually richer item cards that surface the details users actually need before tapping.",
           improved: [
-            "Sticky category tabs eliminate need to scroll back to top",
-            "Card layout replaced dense list view with visual-first design",
-            "Calories and price displayed prominently on each card",
-            "One-tap add-to-cart without opening item detail"
+            "Category tabs stay fixed at the top so users never lose their place while browsing",
+            "Image-forward card grid replaced a cramped, text-heavy list format",
+            "Calorie count and price shown on the card itself — no drill-down required",
+            "Direct add-to-cart action on the card eliminates an extra screen visit"
           ]
         },
         {
           src: "/images/bk/screen_rewards.png",
           before: "/images/bk/before/screen_rewards.png",
           label: "Crown Rewards",
-          description:
-            "A redesigned rewards dashboard that clearly showcases user points, available rewards, and redemption options in a visually engaging and easy-to-navigate layout.",
+          description: "Rebuilt the loyalty screen to make the user's points balance immediately visible and the path from points to redemption obvious and motivating.",
           improved: [
-            "Prominent display of Crown points balance at the top for instant visibility",
-            "Clear separation between available rewards and locked rewards",
-            "Card-based reward layout improves scannability and selection",
-            "Progress indicators show how close users are to unlocking rewards",
-            "Simplified redemption flow with fewer steps and clearer CTA",
-            "Consistent visual hierarchy improves readability and engagement"
+            "Crown points balance surfaced at the very top — no hunting required",
+            "Available and locked rewards visually separated to avoid confusion",
+            "Card-based layout makes reward options scannable at a glance",
+            "Progress bars give users a clear sense of how close they are to the next reward",
+            "Fewer taps to redeem — the flow was compressed and clarified",
+            "Consistent spacing and type hierarchy across every rewards state"
           ]
         },
         {
           src: "/images/bk/screen_cart.png",
           before: "/images/bk/before/screen_cart.png",
           label: "Cart & Checkout",
-          description: "Simplified cart with order summary, applied offers, and a streamlined single-step checkout flow — from cart to confirmed in 3 taps.",
+          description: "Condensed the checkout into a transparent, confidence-building flow that takes users from a full cart to a placed order in just three interactions.",
           improved: [
-            "Checkout reduced from 6 steps to 3 with smart address memory",
-            "Promo code and loyalty points visible inline on cart screen",
-            "Order total breakdown made transparent and scannable",
-            "Saved payment methods surfaced for one-tap payment"
+            "Six-step checkout collapsed to three with remembered delivery address",
+            "Promo codes and loyalty point redemption surfaced directly on the cart view",
+            "Itemised price breakdown shown clearly so there are no surprises at payment",
+            "Previously saved payment methods available with a single tap"
           ]
         },
         {
           src: "/images/bk/screen_nearby.png",
           before: "/images/bk/before/screen_nearby.png",
           label: "Nearby Stores",
-          description:
-            "A map-first store discovery experience where users can visually explore nearby outlets, making location selection faster and more intuitive compared to a traditional list-based layout.",
+          description: "Flipped the store-finder from a plain list to a map-led experience, letting users orient themselves spatially and pick a location with far less effort.",
           improved: [
-            "Map-first interface replaces static list view for intuitive location discovery",
-            "Store pins provide instant visual context of proximity and distribution",
-            "Selected store highlighted directly on map for better focus",
-            "Bottom sheet preview shows key store details without leaving the map",
-            "Seamless transition from map selection to ordering flow",
-            "Reduced cognitive load by prioritizing visual navigation over text-heavy lists"
+            "Map view as the default entry point — spatial context beats a scrollable list",
+            "Pin clustering gives an instant read of store density around the user",
+            "Active store selection highlighted on the map, not just in a sidebar",
+            "Slide-up detail sheet shows hours, distance, and ordering options without leaving the map",
+            "Tapping a pin flows directly into the ordering session for that location",
+            "Removed the cognitive overhead of cross-referencing a list against a mental map"
           ]
         }
       ],

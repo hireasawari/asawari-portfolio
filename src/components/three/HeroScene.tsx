@@ -1,207 +1,297 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Environment, Text, RoundedBox } from "@react-three/drei";
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useMemo } from "react";
 import * as THREE from "three";
 
-/* Warm orange/amber palette */
-const ORANGE = {
-  base: "#9a3412",      // deep orange
-  light: "#f97316",     // bright orange
-  pale: "#fdba74",      // light orange
-  deep: "#431407",      // very deep brown/orange
-  ice: "#ffedd5",       // pale orange (highlights)
-};
+/*
+  DESIGN: Clayomorphism
+  ─────────────────────
+  • High roughness (0.85–1.0), zero metalness → matte clay feel
+  • Strong emissive so shapes glow softly without harsh speculars
+  • Puffy rounded geometry (spheres, capsule-like stacks, torus)
+  • Soft warm lighting from above — single dominant key light
+  • All shapes slightly oversized and bubbly
 
-/* Floating code-bracket symbol < /> */
-function CodeBracket({ position }: { position: [number, number, number] }) {
-  const ref = useRef<THREE.Group>(null!);
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.getElapsedTime();
-    ref.current.rotation.y = Math.sin(t * 0.4) * 0.3;
-    const { x, y } = state.mouse;
-    ref.current.position.x = position[0] + x * 0.25;
-    ref.current.position.y = position[1] + y * 0.25;
-  });
-  return (
-    <Float speed={1.1} rotationIntensity={0.3} floatIntensity={1.0}>
-      <group ref={ref} position={position}>
-        <Text
-          font={undefined}
-          fontSize={1.4}
-          color={ORANGE.pale}
-          anchorX="center"
-          anchorY="middle"
-          letterSpacing={-0.05}
-        >
-          {"</>"}
-          <meshPhysicalMaterial
-            color={ORANGE.pale}
-            roughness={0.3}
-            metalness={0.4}
-            clearcoat={0.8}
-            emissive={ORANGE.light}
-            emissiveIntensity={0.15}
-          />
-        </Text>
-      </group>
-    </Float>
-  );
+  LAYOUT
+  ──────
+  Shapes are spread ACROSS the full canvas but kept
+  semi-transparent so text remains readable.
+  Bar chart is the hero — centered-right.
+  Floating blobs are background accents.
+*/
+
+/* ─────────────────────────────────────────
+   CLAY MATERIAL FACTORY
+   Shared material config for all clay shapes
+───────────────────────────────────────── */
+function clayMat(color: string, opacity = 0.72, emissiveIntensity = 0.28) {
+  return {
+    color,
+    emissive: color,
+    emissiveIntensity,
+    roughness: 0.92,
+    metalness: 0.0,
+    transparent: true,
+    opacity,
+  };
 }
 
-/* Wireframe cube — represents architecture/structure */
-function WireCube({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
-  const ref = useRef<THREE.Group>(null!);
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.getElapsedTime();
-    ref.current.rotation.x = t * 0.2;
-    ref.current.rotation.y = t * 0.25;
-    const { x, y } = state.mouse;
-    ref.current.position.x = position[0] + x * 0.35;
-    ref.current.position.y = position[1] + y * 0.35;
-  });
-  return (
-    <Float speed={1.3} rotationIntensity={0.5} floatIntensity={1.2}>
-      <group ref={ref} position={position} scale={scale}>
-        {/* Solid inner cube */}
-        <mesh>
-          <boxGeometry args={[0.7, 0.7, 0.7]} />
-          <meshPhysicalMaterial
-            color={ORANGE.base}
-            roughness={0.35}
-            metalness={0.5}
-            clearcoat={0.7}
-            clearcoatRoughness={0.2}
-          />
-        </mesh>
-        {/* Wireframe outer cube */}
-        <mesh>
-          <boxGeometry args={[1.05, 1.05, 1.05]} />
-          <meshBasicMaterial color={ORANGE.light} wireframe transparent opacity={0.55} />
-        </mesh>
-      </group>
-    </Float>
-  );
-}
+/* ─────────────────────────────────────────
+   BAR CHART — hero element
+   Chunky rounded clay bars that breathe.
+   Bars are given rounded tops via a sphere
+   cap sitting on each box.
+───────────────────────────────────────── */
+function ClayBars() {
+  const groupRef = useRef<THREE.Group>(null!);
+  const BAR_COUNT = 8;
 
-/* Soft rounded "card" — represents UI / shipped product */
-function CardMesh({ position, rotation }: { position: [number, number, number]; rotation: [number, number, number] }) {
-  const ref = useRef<THREE.Group>(null!);
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.getElapsedTime();
-    ref.current.rotation.y = rotation[1] + Math.sin(t * 0.35) * 0.2;
+  const bars = useMemo(
+    () =>
+      Array.from({ length: BAR_COUNT }, (_, i) => ({
+        baseH: 0.5 + Math.random() * 1.2,
+        phase: (i / BAR_COUNT) * Math.PI * 2 + Math.random() * 0.4,
+        speed: 0.22 + Math.random() * 0.14,
+        x: (i - (BAR_COUNT - 1) / 2) * 0.72,
+      })),
+    []
+  );
+
+  // Store heights so caps can follow
+  const heights = useRef<number[]>(bars.map((b) => b.baseH));
+
+  useFrame(({ clock }) => {
+    if (!groupRef.current) return;
+    const t = clock.getElapsedTime();
+    const children = groupRef.current.children;
+
+    bars.forEach((d, i) => {
+      const h = Math.max(0.15, d.baseH + Math.sin(t * d.speed + d.phase) * 0.25);
+      heights.current[i] = h;
+
+      // Each bar is a <group> — drill into its two mesh children
+      const barGroup = children[i] as THREE.Group;
+      if (!barGroup?.children?.length) return;
+      const bar = barGroup.children[0] as THREE.Mesh; // box body
+      const cap = barGroup.children[1] as THREE.Mesh; // sphere cap
+
+      bar.scale.y = h;
+      bar.position.y = h * 0.5 - 1.9;
+      cap.position.y = h - 1.9;
+    });
   });
+
+  const COLORS = [
+    "#c2410c", "#ea580c", "#f97316",
+    "#fb923c", "#fdba74", "#f97316",
+    "#ea580c", "#c2410c",
+  ];
+
   return (
-    <Float speed={0.9} rotationIntensity={0.25} floatIntensity={1.4}>
-      <group ref={ref} position={position} rotation={rotation}>
-        <RoundedBox args={[1.6, 1.0, 0.12]} radius={0.12} smoothness={6}>
-          <meshPhysicalMaterial
-            color={ORANGE.deep}
-            roughness={0.25}
-            metalness={0.3}
-            clearcoat={0.9}
-            clearcoatRoughness={0.15}
-          />
-        </RoundedBox>
-        {/* Three "window dots" */}
-        {[-0.55, -0.4, -0.25].map((x, i) => (
-          <mesh key={i} position={[x, 0.32, 0.07]}>
-            <circleGeometry args={[0.045, 24]} />
-            <meshBasicMaterial color={ORANGE.pale} />
+    <group ref={groupRef} position={[1.2, 0, 0]}>
+      {bars.map((d, i) => (
+        <group key={i}>
+          {/* body */}
+          <mesh position={[d.x, 0, 0]}>
+            <boxGeometry args={[0.52, 1, 0.52]} />
+            <meshStandardMaterial {...clayMat(COLORS[i], 0.78)} />
           </mesh>
-        ))}
-        {/* Code lines */}
-        {[0.1, -0.05, -0.2].map((y, i) => (
-          <mesh key={`l${i}`} position={[0, y, 0.07]}>
-            <planeGeometry args={[1.1 - i * 0.2, 0.04]} />
-            <meshBasicMaterial color={ORANGE.light} transparent opacity={0.55 - i * 0.1} />
+          {/* rounded cap */}
+          <mesh position={[d.x, 0, 0]}>
+            <sphereGeometry args={[0.28, 16, 16]} />
+            <meshStandardMaterial {...clayMat(COLORS[i], 0.78, 0.35)} />
           </mesh>
-        ))}
-      </group>
-    </Float>
-  );
-}
-
-/* Sphere (idea / node) */
-function NodeSphere({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
-  const ref = useRef<THREE.Mesh>(null!);
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.getElapsedTime();
-    ref.current.rotation.y = t * 0.3;
-    const { x, y } = state.mouse;
-    ref.current.position.x = position[0] + x * 0.3;
-    ref.current.position.y = position[1] + y * 0.3;
-  });
-  return (
-    <Float speed={1.5} rotationIntensity={0.4} floatIntensity={1.3}>
-      <mesh ref={ref} position={position} scale={scale}>
-        <icosahedronGeometry args={[0.55, 1]} />
-        <meshPhysicalMaterial
-          color={ORANGE.base}
-          roughness={0.3}
-          metalness={0.55}
-          clearcoat={0.8}
-          flatShading
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-/* Floating dots — constellation feel */
-function Constellation() {
-  const group = useRef<THREE.Group>(null!);
-  useFrame((state) => {
-    if (!group.current) return;
-    const t = state.clock.getElapsedTime();
-    group.current.rotation.y = t * 0.04;
-    group.current.rotation.x = Math.sin(t * 0.1) * 0.05;
-  });
-  const dots = Array.from({ length: 28 }, (_, i) => {
-    const angle = (i / 28) * Math.PI * 2;
-    const radius = 4.5 + Math.sin(i * 1.7) * 0.8;
-    const y = Math.sin(i * 2.1) * 2.2;
-    return [Math.cos(angle) * radius, y, Math.sin(angle) * radius - 1] as [number, number, number];
-  });
-  return (
-    <group ref={group}>
-      {dots.map((p, i) => (
-        <mesh key={i} position={p}>
-          <sphereGeometry args={[0.04, 8, 8]} />
-          <meshBasicMaterial color={ORANGE.ice} transparent opacity={0.7} />
-        </mesh>
+        </group>
       ))}
     </group>
   );
 }
 
-export const HeroScene = () => {
+/* ─────────────────────────────────────────
+   CLAY BLOB
+   Soft icosphere-like sphere — the puffy
+   accent shapes scattered in the scene.
+───────────────────────────────────────── */
+function ClayBlob({
+  position,
+  radius,
+  color,
+  opacity,
+  speedX,
+  speedY,
+  floatAmp,
+  floatPhase,
+}: {
+  position: [number, number, number];
+  radius: number;
+  color: string;
+  opacity: number;
+  speedX: number;
+  speedY: number;
+  floatAmp: number;
+  floatPhase: number;
+}) {
+  const ref = useRef<THREE.Mesh>(null!);
+  const baseY = position[1];
+
+  useFrame(({ clock }) => {
+    if (!ref.current) return;
+    const t = clock.getElapsedTime();
+    ref.current.rotation.x = t * speedX;
+    ref.current.rotation.y = t * speedY;
+    ref.current.position.y = baseY + Math.sin(t * 0.5 + floatPhase) * floatAmp;
+  });
+
   return (
-    <Canvas
-      camera={{ position: [0, 0, 6], fov: 45 }}
-      dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
-      className="!absolute inset-0"
-    >
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={1.0} color={ORANGE.ice} />
-        <pointLight position={[-4, -2, -3]} intensity={1.2} color={ORANGE.light} />
-        <pointLight position={[3, 3, 2]} intensity={0.8} color={ORANGE.pale} />
-
-        <CodeBracket position={[-2.2, 0.8, 0]} />
-        <WireCube position={[2.3, 0.6, -0.5]} scale={0.95} />
-        <CardMesh position={[-1.4, -1.4, 0.2]} rotation={[0.1, -0.4, 0.05]} />
-        <NodeSphere position={[2.0, -1.3, 0.4]} />
-        <NodeSphere position={[0.2, 1.9, -0.8]} scale={0.55} />
-
-        <Constellation />
-
-        <Environment preset="night" />
-      </Suspense>
-    </Canvas>
+    <mesh ref={ref} position={position}>
+      <icosahedronGeometry args={[radius, 1]} />
+      <meshStandardMaterial {...clayMat(color, opacity, 0.22)} />
+    </mesh>
   );
-};
+}
+
+/* ─────────────────────────────────────────
+   CLAY DONUT
+   A thick puffy torus — looks like a clay
+   donut chart segment.
+───────────────────────────────────────── */
+function ClayDonut({
+  position,
+  radius,
+  tube,
+  color,
+  opacity,
+  tiltX,
+  tiltZ,
+  speed,
+}: {
+  position: [number, number, number];
+  radius: number;
+  tube: number;
+  color: string;
+  opacity: number;
+  tiltX: number;
+  tiltZ: number;
+  speed: number;
+}) {
+  const ref = useRef<THREE.Mesh>(null!);
+  const baseY = position[1];
+
+  useFrame(({ clock }) => {
+    if (!ref.current) return;
+    const t = clock.getElapsedTime();
+    ref.current.rotation.y = t * speed;
+    ref.current.rotation.x = tiltX + Math.sin(t * 0.09) * 0.06;
+    ref.current.rotation.z = tiltZ;
+    ref.current.position.y = baseY + Math.sin(t * 0.35 + 1.2) * 0.12;
+  });
+
+  return (
+    <mesh ref={ref} position={position}>
+      <torusGeometry args={[radius, tube, 20, 60]} />
+      <meshStandardMaterial {...clayMat(color, opacity, 0.2)} />
+    </mesh>
+  );
+}
+
+/* ─────────────────────────────────────────
+   SCENE ROOT
+───────────────────────────────────────── */
+export const HeroScene = () => (
+  <Canvas
+    camera={{ position: [0, 1.0, 8.0], fov: 48 }}
+    dpr={[1, 1.5]}
+    gl={{ antialias: true, alpha: true }}
+    className="!absolute inset-0"
+  >
+    <Suspense fallback={null}>
+      {/* Clay needs strong warm top light + soft fill */}
+      <ambientLight intensity={0.35} color="#fff7ed" />
+      <pointLight position={[0, 8, 4]} intensity={3.5} color="#ffffff" distance={22} />
+      <pointLight position={[6, 4, 2]} intensity={1.6} color="#fed7aa" distance={18} />
+      <pointLight position={[-5, 2, -2]} intensity={0.8} color="#f97316" distance={16} />
+      <pointLight position={[0, -4, 3]} intensity={0.4} color="#7c2d12" distance={12} />
+
+      {/* ── Background clay blobs ── */}
+      {/* top-left accent */}
+      <ClayBlob
+        position={[-4.2, 1.8, -2.5]}
+        radius={0.55}
+        color="#f97316"
+        opacity={0.35}
+        speedX={0.04}
+        speedY={0.06}
+        floatAmp={0.18}
+        floatPhase={0}
+      />
+      {/* top-right accent */}
+      <ClayBlob
+        position={[4.8, 1.5, -1.8]}
+        radius={0.42}
+        color="#fdba74"
+        opacity={0.3}
+        speedX={-0.05}
+        speedY={0.04}
+        floatAmp={0.14}
+        floatPhase={1.2}
+      />
+      {/* bottom-left small */}
+      <ClayBlob
+        position={[-3.8, -1.6, -1.5]}
+        radius={0.32}
+        color="#fb923c"
+        opacity={0.28}
+        speedX={0.07}
+        speedY={-0.05}
+        floatAmp={0.12}
+        floatPhase={2.4}
+      />
+      {/* far right mid */}
+      <ClayBlob
+        position={[5.2, -0.4, -2.0]}
+        radius={0.48}
+        color="#ea580c"
+        opacity={0.25}
+        speedX={0.03}
+        speedY={0.08}
+        floatAmp={0.16}
+        floatPhase={0.8}
+      />
+      {/* small top-center */}
+      <ClayBlob
+        position={[-1.5, 2.8, -3.0]}
+        radius={0.28}
+        color="#fdba74"
+        opacity={0.22}
+        speedX={0.06}
+        speedY={0.03}
+        floatAmp={0.1}
+        floatPhase={3.5}
+      />
+
+      {/* ── Clay donuts ── */}
+      <ClayDonut
+        position={[-4.5, 0.2, -2.8]}
+        radius={1.1}
+        tube={0.28}
+        color="#f97316"
+        opacity={0.28}
+        tiltX={0.6}
+        tiltZ={0.4}
+        speed={0.04}
+      />
+      <ClayDonut
+        position={[5.0, 0.8, -3.2]}
+        radius={0.75}
+        tube={0.2}
+        color="#fdba74"
+        opacity={0.22}
+        tiltX={-0.5}
+        tiltZ={-0.3}
+        speed={-0.055}
+      />
+
+      {/* ── Hero bar chart ── */}
+      <ClayBars />
+    </Suspense>
+  </Canvas>
+);

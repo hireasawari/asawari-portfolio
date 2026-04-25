@@ -9,9 +9,9 @@ export const Achievements = () => {
   return (
     <section id="achievements" className="container py-16 md:py-24">
       <SectionHeader
-        eyebrow="Recognition"
-        title="Achievements"
-        description="Hackathon wins and competitions where ideas turned into trophies."
+        eyebrow="Highlights"
+        title="Wins &amp; Recognitions"
+        description="Competitions entered, trophies earned, certifications completed."
       />
 
       <div className="relative">
