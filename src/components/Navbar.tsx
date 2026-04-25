@@ -61,8 +61,8 @@ export const Navbar = () => {
           className="flex items-center gap-2 group"
           aria-label="Home"
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-sm font-bold text-primary-foreground shadow-none transition-transform group-hover:scale-105">
-            SG
+          <span className="grid h-16 w-16 place-items-center rounded-xl bg-transparent shadow-none transition-transform group-hover:scale-105 overflow-hidden">
+            <img src="/logo.png?v=2" alt="Logo" className="w-full h-full object-cover" />
           </span>
           <span className="hidden sm:inline font-display font-semibold tracking-tight">
             Sahil Gupta

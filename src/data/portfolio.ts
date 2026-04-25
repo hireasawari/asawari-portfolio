@@ -58,7 +58,7 @@ export const portfolio = {
         "Onboarded 200+ early users in the first two weeks",
       ],
       tech: ["Next.js", "LangChain", "Supabase", "Tailwind", "OpenAI"],
-      links: { github: "https://github.com/sahilgupta", live: "#" },
+      links: { github: "https://github.com/vinayakyadav2709/vegha", live: "#" },
     },
     {
       title: "CivicConnect",
@@ -71,7 +71,7 @@ export const portfolio = {
         "Recognised at MUJ HackX 3.0 (Runner-Up)",
       ],
       tech: ["React", "FastAPI", "PostgreSQL", "PostGIS", "Mapbox"],
-      links: { github: "https://github.com/sahilgupta", live: "#" },
+      links: { github: "https://github.com/Sahil-Gupta-16/CivicConnect", live: "#" },
     },
     {
       title: "Deepfake Detection",
@@ -84,7 +84,7 @@ export const portfolio = {
         "Deployed Flask demo with live webcam scoring",
       ],
       tech: ["PyTorch", "OpenCV", "Flask", "Docker"],
-      links: { github: "https://github.com/sahilgupta", live: "#" },
+      links: { github: "https://github.com/Sahil-Gupta-16/MUJ", live: "#" },
     },
   ],
 

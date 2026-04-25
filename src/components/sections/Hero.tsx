@@ -62,7 +62,7 @@ export const Hero = () => {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
+                variant="secondary"
                 className="bg-surface-container-high border-0 hover:bg-surface-container-highest hover:-translate-y-0.5 transition-all text-foreground"
               >
                 <a href={portfolio.resume} download>
