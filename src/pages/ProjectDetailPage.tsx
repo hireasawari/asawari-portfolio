@@ -1,296 +1,368 @@
+import { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { projectsData } from "@/data/projects";
-import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Github, ExternalLink, Lightbulb, Target, Layers, CheckCircle2, TrendingUp, AlertTriangle, Rocket } from "lucide-react";
+import {
+  ArrowLeft, Github, ExternalLink,
+  Lightbulb, Target, Layers, CheckCircle2,
+  TrendingUp, AlertTriangle, Rocket, BookOpen,
+} from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
-// --- Components ---
+// ─── Reading Progress ─────────────────────────────────────────────────────────
+function ReadingProgress() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const fn = () => {
+      const tot = document.documentElement.scrollHeight - window.innerHeight;
+      setPct(tot > 0 ? (window.scrollY / tot) * 100 : 0);
+    };
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+  return (
+    <div className="fixed top-0 inset-x-0 z-[60] h-0.5 bg-white/5">
+      <div className="h-full bg-primary transition-none" style={{ width: `${pct}%` }} />
+    </div>
+  );
+}
 
-const EditorialSection = ({
-  title,
-  content,
-  align = "left",
-  icon: Icon,
-  delay = 0.2
+// ─── Editorial Section (newspaper alternating) ────────────────────────────────
+function EditorialSection({
+  title, content, icon: Icon, index,
 }: {
-  title: string,
-  content: string,
-  align?: "left" | "right",
-  icon?: any,
-  delay?: number
-}) => {
-  const isLeft = align === "left";
+  title: string; content: string; icon: any; index: number;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const isEven = index % 2 === 0;
 
-  return (
-    <section className="container py-16 md:py-24 relative z-10">
-      <div className={`max-w-4xl relative ${isLeft ? "mr-auto" : "ml-auto text-left"}`}>
-        {/* Floating Depth Effect Background */}
-        <div className="absolute -inset-6 -z-10 bg-gradient-to-br from-surface-container-high/20 to-transparent rounded-3xl blur-xl pointer-events-none" />
-
-        <motion.div
-          initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut", delay }}
-          className="relative z-10"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            {Icon && <Icon className="h-6 w-6 text-primary" />}
-            <h2 className="text-sm uppercase tracking-[0.2em] text-primary font-bold">{title}</h2>
-          </div>
-
-          <div className="prose prose-invert prose-lg md:prose-xl max-w-none text-foreground/90 leading-relaxed font-light">
-            {content.split('\n').map((paragraph, i) => (
-              <p key={i} className="mb-6">{paragraph}</p>
-            ))}
-          </div>
-        </motion.div>
+  const labelCol = (
+    <div className={`relative flex flex-col items-center justify-center gap-4 py-6 ${isEven ? "md:items-end md:text-right" : "md:items-start md:text-left"}`}>
+      {/* Giant background number watermark */}
+      <div className={`absolute top-1/2 -translate-y-1/2 text-[100px] md:text-[140px] font-display font-black text-white/[0.03] select-none pointer-events-none z-0 ${isEven ? "md:right-0 md:translate-x-1/4" : "md:left-0 md:-translate-x-1/4"}`}>
+        {String(index + 1).padStart(2, "0")}
       </div>
-    </section>
-  );
-};
 
-const ImageGallery = ({ images, projectTitle }: { images: string[], projectTitle: string }) => {
-  if (!images || images.length === 0) {
-    return (
-      <section className="container py-16 md:py-24">
-        <Reveal>
-          <div className="text-center py-16">
-            <Layers className="h-16 w-16 text-muted-foreground/50 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-muted-foreground mb-2">Visual Assets Coming Soon</h3>
-            <p className="text-muted-foreground">Screenshots and diagrams will be added to showcase the project visually.</p>
-          </div>
-        </Reveal>
-      </section>
-    );
-  }
+      {/* Large icon circle */}
+      <motion.div
+        initial={{ scale: 0.7, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="relative grid h-16 w-16 md:h-20 md:w-20 place-items-center rounded-2xl bg-primary/10 border border-primary/15 z-10"
+      >
+        <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl" />
+        <Icon className="h-7 w-7 md:h-9 md:w-9 text-primary relative z-10" />
+      </motion.div>
+      
+      {/* Section title */}
+      <h2 className="text-xl md:text-2xl font-bold text-foreground uppercase tracking-[0.12em] leading-tight max-w-[200px] z-10">
+        {title}
+      </h2>
+      {/* Section Sub-label */}
+      <span className="text-[10px] text-primary/80 font-mono uppercase tracking-[0.2em] z-10 bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">
+        Section {String(index + 1).padStart(2, "0")}
+      </span>
+      {/* Decorative rule */}
+      <div className={`h-px w-16 bg-gradient-to-r ${isEven ? "from-transparent to-primary/50" : "from-primary/50 to-transparent"} z-10 mt-2`} />
+    </div>
+  );
+
+  const contentCol = (
+    <div className="flex flex-col justify-center">
+      <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-6 md:p-8 overflow-hidden transition-all duration-500 hover:border-primary/20 hover:shadow-glow-soft group/card">
+        {/* Glow behind the card */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-transparent group-hover/card:from-primary/5 transition-all duration-500 pointer-events-none" />
+        
+        {/* Left/Right accent bar - made thicker and full height on hover */}
+        <div className={`absolute top-0 bottom-0 w-1 bg-gradient-to-b from-primary/60 via-primary/20 to-transparent transition-all duration-500 opacity-50 group-hover/card:opacity-100 ${!isEven ? "right-0" : "left-0"}`} />
+        
+        {/* Subtle Watermark Icon inside card */}
+        <div className={`absolute -bottom-12 opacity-[0.02] pointer-events-none transition-transform duration-700 group-hover/card:scale-110 group-hover/card:opacity-[0.04] ${!isEven ? "-left-12" : "-right-12"}`}>
+          <Icon className="w-64 h-64" />
+        </div>
+
+        <div className="relative z-10">
+          {content.split("\n").map((p, i) => (
+            <p key={i} className={`leading-[1.85] font-light ${i === 0 ? "text-lg md:text-xl text-foreground/90 mb-6 font-medium tracking-tight" : "text-base md:text-[1.05rem] text-muted-foreground/80 mb-4"}`}>
+              {p}
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <section className="container py-16 md:py-24">
-      <Reveal>
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">Visual Showcase</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[300px]">
-          {images.map((img, i) => {
-            const isWide = i === 0; // First image spans 2 columns
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="group"
+    >
+      {/* Top rule */}
+      <div className="w-full h-px bg-white/5 mb-10" />
 
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className={`group relative rounded-2xl overflow-hidden bg-surface-container-high border border-white/5 ${
-                  isWide ? "md:col-span-2 md:row-span-2" : ""
-                }`}
-              >
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center pointer-events-none">
-                  <span className="bg-background/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium text-foreground">View Full</span>
-                </div>
-                <img
-                  src={img}
-                  alt={`${projectTitle} visual ${i + 1}`}
-                  className="relative w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.parentElement!.innerHTML = `
-                      <div class="absolute inset-0 flex flex-col items-center justify-center bg-surface-container-high">
-                        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                          <Layers class="h-6 w-6 text-primary" />
-                        </div>
-                        <span class="text-sm font-medium text-muted-foreground">Image ${i + 1}</span>
-                      </div>
-                    `;
-                  }}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-      </Reveal>
-    </section>
+      <div className={`grid md:grid-cols-[1fr_2px_3fr] gap-8 md:gap-16 items-start ${!isEven ? "md:grid-cols-[3fr_2px_1fr] md:[&>*:nth-child(1)]:order-3 md:[&>*:nth-child(2)]:order-2 md:[&>*:nth-child(3)]:order-1" : ""}`}>
+        {/* Label column */}
+        {labelCol}
+        {/* Vertical divider */}
+        <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        {/* Content column */}
+        {contentCol}
+      </div>
+    </motion.div>
   );
-};
+}
 
-// --- Main Page ---
+// ─── Image Gallery ────────────────────────────────────────────────────────────
+function ImageGallery({ images, projectTitle, index }: { images: string[]; projectTitle: string; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const isEven = index % 2 === 0;
 
+  const labelCol = (
+    <div className={`relative flex flex-col items-center justify-center gap-4 py-6 ${isEven ? "md:items-end md:text-right" : "md:items-start md:text-left"}`}>
+      {/* Giant background number watermark */}
+      <div className={`absolute top-1/2 -translate-y-1/2 text-[100px] md:text-[140px] font-display font-black text-white/[0.03] select-none pointer-events-none z-0 ${isEven ? "md:right-0 md:translate-x-1/4" : "md:left-0 md:-translate-x-1/4"}`}>
+        {String(index + 1).padStart(2, "0")}
+      </div>
+
+      <motion.div
+        initial={{ scale: 0.7, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="relative grid h-16 w-16 md:h-20 md:w-20 place-items-center rounded-2xl bg-primary/10 border border-primary/15 z-10"
+      >
+        <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl" />
+        <BookOpen className="h-7 w-7 md:h-9 md:w-9 text-primary relative z-10" />
+      </motion.div>
+      
+      <h2 className="text-xl md:text-2xl font-bold text-foreground uppercase tracking-[0.12em] leading-tight max-w-[200px] z-10">
+        Gallery
+      </h2>
+      <span className="text-[10px] text-primary/80 font-mono uppercase tracking-[0.2em] z-10 bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">
+        Section {String(index + 1).padStart(2, "0")}
+      </span>
+      <div className={`h-px w-16 bg-gradient-to-r ${isEven ? "from-transparent to-primary/50" : "from-primary/50 to-transparent"} z-10 mt-2`} />
+    </div>
+  );
+
+  const contentCol = (
+    <div className="flex flex-col justify-center">
+      <div className="relative rounded-2xl bg-surface-container-low border border-white/5 p-5 md:p-7 overflow-hidden transition-all duration-500 hover:border-primary/20 hover:shadow-glow-soft group/card">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-transparent group-hover/card:from-primary/5 transition-all duration-500 pointer-events-none" />
+        <div className={`absolute top-0 bottom-0 w-1 bg-gradient-to-b from-primary/60 via-primary/20 to-transparent transition-all duration-500 opacity-50 group-hover/card:opacity-100 ${!isEven ? "right-0" : "left-0"}`} />
+        
+        <div className="relative z-10">
+          {!images || images.length === 0 ? (
+            <div className="py-12 text-center">
+              <Layers className="h-10 w-10 text-muted-foreground/30 mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">Visual assets coming soon</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {images.map((img, i) => (
+                <motion.div
+                  key={i}
+                  className={`group/img relative rounded-xl overflow-hidden bg-surface-container-high border border-white/5 h-48 ${i === 0 ? "sm:col-span-2 h-64" : ""}`}
+                  whileHover={{ scale: 1.015 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                >
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/img:opacity-100 transition-opacity z-10 flex items-center justify-center pointer-events-none">
+                    <span className="bg-background/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium">View Full</span>
+                  </div>
+                  <img
+                    src={img}
+                    alt={`${projectTitle} ${i + 1}`}
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      const p = e.currentTarget.parentElement;
+                      if (p) p.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center bg-surface-container-high"><span class="text-muted-foreground text-sm">Image ${i + 1}</span></div>`;
+                    }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.65 }}
+      className="group"
+    >
+      <div className="w-full h-px bg-white/5 mb-10" />
+      <div className={`grid md:grid-cols-[1fr_2px_3fr] gap-8 md:gap-16 items-start ${!isEven ? "md:grid-cols-[3fr_2px_1fr] md:[&>*:nth-child(1)]:order-3 md:[&>*:nth-child(2)]:order-2 md:[&>*:nth-child(3)]:order-1" : ""}`}>
+        {/* Label column */}
+        {labelCol}
+        {/* Vertical divider */}
+        <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        {/* Content column */}
+        {contentCol}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
 const ProjectDetailPage = () => {
   const { id } = useParams();
-  const project = projectsData.find(p => p.id === id);
+  const project = projectsData.find((p) => p.id === id);
 
-  if (!project) {
-    return <Navigate to="/projects" replace />;
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+
+  if (!project) return <Navigate to="/projects" replace />;
   const { details } = project;
 
+  // Unified sequence of sections
+  const allSections = [
+    { type: "text",    title: "Overview",            content: details.overview,      icon: Layers },
+    { type: "text",    title: "Motivation",          content: details.motivation,    icon: Lightbulb },
+    { type: "text",    title: "The Problem",         content: details.problem,       icon: Target },
+    { type: "text",    title: "The Solution",        content: details.solution,      icon: CheckCircle2 },
+    { type: "text",    title: "Technical Deep Dive", content: details.architecture,  icon: Layers },
+    { type: "gallery", title: "Gallery",             images: details.images,         icon: BookOpen },
+    { type: "text",    title: "Results & Impact",    content: details.results,       icon: TrendingUp },
+    { type: "text",    title: "Challenges Faced",    content: details.challenges,    icon: AlertTriangle },
+    { type: "text",    title: "Future Scope",        content: details.futureScope,   icon: Rocket },
+  ];
+
   return (
-    <div className="min-h-screen bg-background text-foreground relative selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <ReadingProgress />
       <Navbar />
 
-      <main className="relative pb-32">
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-surface-container-low to-background" />
+      {/* Fixed background */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: "radial-gradient(circle, hsl(186 100% 50%) 1px, transparent 1px)", backgroundSize: "44px 44px" }} />
+        <motion.div className="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full"
+          style={{ background: "radial-gradient(circle, hsl(186 100% 50% / 0.07) 0%, transparent 70%)" }}
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.div className="absolute bottom-1/3 -left-32 w-96 h-96 rounded-full"
+          style={{ background: "radial-gradient(circle, hsl(186 100% 50% / 0.05) 0%, transparent 70%)" }}
+          animate={{ x: [0, -20, 0], y: [0, 30, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }} />
+      </div>
 
-          <div className="container relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl"
-            >
-              <Link to="/projects" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-8 group">
+      <main className="pb-32">
+        {/* ── Hero ───────────────────────────────────────────────────────── */}
+        <section ref={heroRef} className="relative pt-32 pb-16 md:pt-44 md:pb-24 overflow-hidden">
+          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container max-w-6xl relative z-10">
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <Link to="/projects" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-10 group">
                 <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" /> Back to Projects
               </Link>
-
-              <motion.h1
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                className="font-display text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.1]"
-              >
-                {project.title}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.4 }}
-                className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed"
-              >
-                {project.shortDescription}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-wrap gap-3 mb-10"
-              >
-                {project.techStack.map((tech) => (
-                  <span key={tech} className="px-4 py-2 text-sm font-semibold uppercase tracking-wider rounded-full bg-surface-container-high/50 border border-white/5 text-foreground backdrop-blur-sm">
-                    {tech}
-                  </span>
-                ))}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex flex-wrap gap-4"
-              >
-                {details.github && (
-                  <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-glow-soft hover:-translate-y-1 transition-all rounded-full px-8 h-12">
-                    <a href={details.github} target="_blank" rel="noreferrer">
-                      <Github className="mr-2 h-5 w-5" /> View Source
-                    </a>
-                  </Button>
-                )}
-                {details.demo && (
-                  <Button asChild size="lg" variant="outline" className="bg-surface-container-high/50 backdrop-blur-sm border-white/10 hover:bg-surface-container-highest hover:-translate-y-1 transition-all rounded-full px-8 h-12 text-foreground">
-                    <a href={details.demo} target="_blank" rel="noreferrer">
-                      <ExternalLink className="mr-2 h-5 w-5" /> Live Demo
-                    </a>
-                  </Button>
-                )}
-              </motion.div>
             </motion.div>
-          </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="relative rounded-3xl bg-surface-container-low/80 border border-white/5 p-8 md:p-12 overflow-hidden backdrop-blur-sm"
+            >
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/8 blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-primary/5 blur-2xl pointer-events-none" />
+
+              <div className="relative z-10">
+                <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+                  className="flex flex-wrap items-center gap-2 mb-6">
+                  <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-widest">Case Study</span>
+                  <span className="px-3 py-1 rounded-full bg-surface-container-high text-muted-foreground text-xs">{project.techStack.length} Technologies</span>
+                </motion.div>
+
+                <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="font-display text-3xl md:text-5xl font-bold tracking-tight mb-5 leading-[1.1]">
+                  {project.title}
+                </motion.h1>
+
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}
+                  className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-3xl">
+                  {project.shortDescription}
+                </motion.p>
+
+                <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.55 }}
+                  className="flex flex-wrap gap-2 mb-8">
+                  {project.techStack.map((tech) => (
+                    <span key={tech} className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-surface-container-high/60 border border-white/5 text-foreground">
+                      {tech}
+                    </span>
+                  ))}
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.7 }}
+                  className="flex flex-wrap gap-3">
+                  {details.github && (
+                    <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-glow hover:-translate-y-1 transition-all rounded-full px-8 h-12">
+                      <a href={details.github} target="_blank" rel="noreferrer"><Github className="mr-2 h-4 w-4" /> View Source</a>
+                    </Button>
+                  )}
+                  {details.demo && (
+                    <Button asChild size="lg" variant="outline" className="bg-surface-container-high/50 border-white/10 hover:bg-surface-container-highest hover:-translate-y-1 transition-all rounded-full px-8 h-12 text-foreground">
+                      <a href={details.demo} target="_blank" rel="noreferrer"><ExternalLink className="mr-2 h-4 w-4" /> Live Demo</a>
+                    </Button>
+                  )}
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
         </section>
 
-        {/* Story Flow - Following Reference Plan */}
-        <div className="relative bg-background">
-          <EditorialSection
-            title="Overview"
-            content={details.overview || "Project overview details coming soon..."}
-            align="left"
-            icon={Layers}
-          />
+        {/* ── Editorial Content ──────────────────────────────────────────── */}
+        <div className="container max-w-6xl space-y-16 pt-8">
+          {allSections.map((s, i) => {
+            if (s.type === "gallery") {
+              return <ImageGallery key={s.title} images={s.images!} projectTitle={project.title} index={i} />;
+            }
+            return <EditorialSection key={s.title} title={s.title} content={s.content || "Coming soon."} icon={s.icon} index={i} />;
+          })}
 
-          <EditorialSection
-            title="Motivation"
-            content={details.motivation || "Motivation details coming soon..."}
-            align="right"
-            icon={Lightbulb}
-          />
-
-          <EditorialSection
-            title="The Problem"
-            content={details.problem || "Problem statement coming soon..."}
-            align="left"
-            icon={Target}
-          />
-
-          <EditorialSection
-            title="The Solution"
-            content={details.solution || "Solution approach coming soon..."}
-            align="right"
-            icon={CheckCircle2}
-          />
-
-          <EditorialSection
-            title="Technical Deep Dive"
-            content={details.architecture || "Technical architecture details coming soon..."}
-            align="left"
-            icon={Layers}
-          />
-
-          {/* Visual Gallery */}
-          <ImageGallery images={details.images} projectTitle={project.title} />
-
-          <EditorialSection
-            title="Results & Impact"
-            content={details.results || "Results and impact metrics coming soon..."}
-            align="right"
-            icon={TrendingUp}
-          />
-
-          <EditorialSection
-            title="Challenges Faced"
-            content={details.challenges || "Challenges and solutions coming soon..."}
-            align="left"
-            icon={AlertTriangle}
-          />
-
-          <EditorialSection
-            title="Future Scope"
-            content={details.futureScope || "Future improvements and scope coming soon..."}
-            align="right"
-            icon={Rocket}
-          />
+          {/* Final rule */}
+          <div className="w-full h-px bg-white/5" />
         </div>
 
-        {/* Footer CTA */}
+        {/* ── Footer CTA ─────────────────────────────────────────────────── */}
         <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="container py-24 text-center relative z-20"
+          initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.8 }}
+          className="container max-w-6xl pt-20 text-center"
         >
-          <div className="w-px h-24 bg-gradient-to-b from-primary/50 to-transparent mx-auto mb-12" />
-
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-8">Explore More Projects</h2>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-glow-soft hover:-translate-y-1 transition-all rounded-full px-8 h-12">
-              <Link to="/projects">
-                <ArrowLeft className="mr-2 h-5 w-5" /> Back to Projects
-              </Link>
-            </Button>
-            {details.github && (
-              <Button asChild size="lg" variant="secondary" className="bg-surface-container border-white/10 hover:bg-surface-container-high hover:-translate-y-1 transition-all rounded-full px-8 h-12 text-foreground">
-                <a href={details.github} target="_blank" rel="noreferrer">
-                  View Repository
-                </a>
+          <div className="relative rounded-3xl bg-surface-container-low border border-white/5 px-10 py-14 overflow-hidden">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
+            <div className="w-px h-12 bg-gradient-to-b from-primary/60 to-transparent mx-auto mb-8" />
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-4">Explore More Projects</h2>
+            <p className="text-muted-foreground text-sm mb-8 max-w-sm mx-auto leading-relaxed">
+              Dive into the rest of my work — from deep learning systems to full-stack platforms.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-glow hover:-translate-y-1 transition-all rounded-full px-8">
+                <Link to="/projects"><ArrowLeft className="mr-2 h-4 w-4" /> All Projects</Link>
               </Button>
-            )}
+              {details.github && (
+                <Button asChild size="lg" variant="secondary" className="bg-surface-container border-white/10 hover:bg-surface-container-high hover:-translate-y-1 transition-all rounded-full px-8 text-foreground">
+                  <a href={details.github} target="_blank" rel="noreferrer">View Repository</a>
+                </Button>
+              )}
+            </div>
           </div>
         </motion.section>
       </main>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import config from "@/data/config.json";
 
 const links = [
   { id: "about", label: "About" },
@@ -11,10 +12,15 @@ const links = [
   { id: "contact", label: "Contact" },
 ];
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("about");
   const [open, setOpen] = useState(false);
+  
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -24,6 +30,7 @@ export const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    if (location.pathname !== "/") return;
     const sections = links.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
     if (!sections.length) return;
     const observer = new IntersectionObserver(
@@ -36,11 +43,15 @@ export const Navbar = () => {
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   const handleClick = (id: string) => {
     setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -62,7 +73,7 @@ export const Navbar = () => {
           aria-label="Home"
         >
           <span className="grid h-16 w-16 place-items-center rounded-xl bg-transparent shadow-none transition-transform group-hover:scale-105 overflow-hidden">
-            <img src="/logo.png?v=2" alt="Logo" className="w-full h-full object-cover" />
+            <img src={config.logo} alt="Logo" className="w-full h-full object-cover" />
           </span>
           <span className="hidden sm:inline font-display font-semibold tracking-tight">
             Sahil Gupta
