@@ -30,9 +30,18 @@ export const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (location.pathname !== "/") return;
+    if (location.pathname.startsWith("/project")) {
+      setActive("projects");
+      return;
+    }
+    if (location.pathname !== "/") {
+      setActive("");
+      return;
+    }
+    
     const sections = links.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
     if (!sections.length) return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -41,6 +50,7 @@ export const Navbar = () => {
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
     );
+    
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [location.pathname]);

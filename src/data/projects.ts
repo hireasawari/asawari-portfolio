@@ -14,13 +14,21 @@ export interface ProjectDetails {
 }
 
 // ─── Design / UI-UX Project Types ────────────────────────────────────────────
+export interface DesignScreen {
+  src: string;
+  before?: string;
+  label: string;
+  description: string;
+  improved: string[];
+}
+
 export interface DesignProjectDetails {
   overview: string;
   problem: string[];
   designProcess: { label: string; description: string }[];
   solution: string[];
   designHighlights: string[];
-  screens: { src: string; label: string; description: string }[];
+  screens: DesignScreen[];
   beforeAfter?: { before: string; after: string; label: string }[];
   prototype: string;
   figma: string;
@@ -143,11 +151,11 @@ export const projectsData: Project[] = [
       ],
 
       designProcess: [
-        { label: "Research",      description: "Conducted heuristic analysis of the existing app and identified key user pain points through competitive benchmarking." },
-        { label: "Wireframes",    description: "Created low-fidelity wireframes to restructure the layout and simplify the core ordering flow." },
-        { label: "UI Design",     description: "Designed high-fidelity screens with improved visual hierarchy, spacing, and a consistent design system." },
-        { label: "Prototyping",   description: "Built an interactive prototype in Figma to validate the new user flow end-to-end." },
-        { label: "Iteration",     description: "Refined designs based on feedback, focusing on micro-interactions and edge cases in the ordering flow." }
+        { label: "Research", description: "Conducted heuristic analysis of the existing app and identified key user pain points through competitive benchmarking." },
+        { label: "Wireframes", description: "Created low-fidelity wireframes to restructure the layout and simplify the core ordering flow." },
+        { label: "UI Design", description: "Designed high-fidelity screens with improved visual hierarchy, spacing, and a consistent design system." },
+        { label: "Prototyping", description: "Built an interactive prototype in Figma to validate the new user flow end-to-end." },
+        { label: "Iteration", description: "Refined designs based on feedback, focusing on micro-interactions and edge cases in the ordering flow." }
       ],
 
       solution: [
@@ -167,11 +175,72 @@ export const projectsData: Project[] = [
       ],
 
       screens: [
-        { src: "/images/bk/screen1.png", label: "Home Screen",      description: "Redesigned home screen with featured items, quick access categories, and a cleaner hero banner." },
-        { src: "/images/bk/screen2.png", label: "Menu & Browse",    description: "Restructured menu layout with sticky category tabs and better item cards for faster browsing." },
-        { src: "/images/bk/screen3.png", label: "Item Detail",      description: "Full-screen product view with clear customization options and a prominent add-to-cart button." },
-        { src: "/images/bk/screen4.png", label: "Cart & Checkout",  description: "Simplified cart experience with order summary, applied offers, and a single-tap checkout flow." },
-        { src: "/images/bk/screen5.png", label: "Order Tracking",   description: "Live order tracking screen with animated status updates and estimated delivery time." }
+        {
+          src: "/images/bk/screen_home.png",
+          before: "/images/bk/before/screen_home.png",
+          label: "Home Screen",
+          description: "Redesigned home screen with featured items, quick access categories, and a cleaner hero banner that puts food front and center.",
+          improved: [
+            "Replaced cluttered promo grid with a focused hero + category strip",
+            "Added a persistent search bar for faster item discovery",
+            "Reduced visual noise by 60% — clearer white space and hierarchy",
+            "Prominent 'Order Now' CTA above the fold"
+          ]
+        },
+        {
+          src: "/images/bk/screen_menu.png",
+          before: "/images/bk/before/screen_menu.png",
+          label: "Menu & Browse",
+          description: "Restructured menu layout with sticky category tabs and better item cards that surface nutritional info and customisation options.",
+          improved: [
+            "Sticky category tabs eliminate need to scroll back to top",
+            "Card layout replaced dense list view with visual-first design",
+            "Calories and price displayed prominently on each card",
+            "One-tap add-to-cart without opening item detail"
+          ]
+        },
+        {
+          src: "/images/bk/screen_rewards.png",
+          before: "/images/bk/before/screen_rewards.png",
+          label: "Crown Rewards",
+          description:
+            "A redesigned rewards dashboard that clearly showcases user points, available rewards, and redemption options in a visually engaging and easy-to-navigate layout.",
+          improved: [
+            "Prominent display of Crown points balance at the top for instant visibility",
+            "Clear separation between available rewards and locked rewards",
+            "Card-based reward layout improves scannability and selection",
+            "Progress indicators show how close users are to unlocking rewards",
+            "Simplified redemption flow with fewer steps and clearer CTA",
+            "Consistent visual hierarchy improves readability and engagement"
+          ]
+        },
+        {
+          src: "/images/bk/screen_cart.png",
+          before: "/images/bk/before/screen_cart.png",
+          label: "Cart & Checkout",
+          description: "Simplified cart with order summary, applied offers, and a streamlined single-step checkout flow — from cart to confirmed in 3 taps.",
+          improved: [
+            "Checkout reduced from 6 steps to 3 with smart address memory",
+            "Promo code and loyalty points visible inline on cart screen",
+            "Order total breakdown made transparent and scannable",
+            "Saved payment methods surfaced for one-tap payment"
+          ]
+        },
+        {
+          src: "/images/bk/screen_nearby.png",
+          before: "/images/bk/before/screen_nearby.png",
+          label: "Nearby Stores",
+          description:
+            "A map-first store discovery experience where users can visually explore nearby outlets, making location selection faster and more intuitive compared to a traditional list-based layout.",
+          improved: [
+            "Map-first interface replaces static list view for intuitive location discovery",
+            "Store pins provide instant visual context of proximity and distribution",
+            "Selected store highlighted directly on map for better focus",
+            "Bottom sheet preview shows key store details without leaving the map",
+            "Seamless transition from map selection to ordering flow",
+            "Reduced cognitive load by prioritizing visual navigation over text-heavy lists"
+          ]
+        }
       ],
 
       prototype: "",
