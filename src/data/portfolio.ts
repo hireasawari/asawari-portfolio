@@ -1,20 +1,20 @@
 export const portfolio = {
-  name: "Sahil Gupta",
-  role: "Software Engineer · AI/ML Builder",
-  tagline: "I build AI-powered products and full-stack experiences that ship.",
+  name: "Asawari Hire",
+  role: "Data Analyst · AI/ML Builder",
+  tagline: "I build data-driven products and AI-powered solutions that ship.",
   location: "Mumbai, India",
-  email: "sahil160506@gmail.com",
-  phone: "+91 7038711591",
-  github: "https://github.com/Sahil-Gupta-16",
-  linkedin: "https://linkedin.com/in/sahil-gupta-6b0069290",
-  resume: "/Sahil_Gupta_Resume.pdf",
+  email: "hireasawari@gmail.com",
+  phone: "",
+  github: "https://github.com/AsawariHire",
+  linkedin: "https://linkedin.com/in/asawari-hire",
+  resume: "/Asawari_Hire_Resume.pdf",
 
   about:
-    "Computer Engineering undergrad at SPIT with a builder's mindset. I love turning rough ideas into shipped products — from AI agents and deepfake detection systems to civic-tech platforms. Three hackathon wins, multiple side projects, and a deep curiosity for systems that learn.",
+    "Computer Engineering undergrad at SPIT with a passion for data and AI. I love turning raw data into actionable insights and intelligent systems — from stock sentiment dashboards and emergency prediction models to LLM-powered recruitment tools. Datathon winner, intern-tested, and deeply curious about systems that learn.",
 
   stats: [
-    { label: "Hackathon Wins", value: "3+" },
-    { label: "Projects Shipped", value: "5+" },
+    { label: "Hackathon Wins", value: "1+" },
+    { label: "Projects Shipped", value: "3+" },
     { label: "Tech Stack", value: "15+" },
     { label: "Year of Study", value: "3rd" },
   ],
@@ -22,90 +22,90 @@ export const portfolio = {
   skills: [
     {
       category: "Languages",
-      items: ["Python", "TypeScript", "JavaScript", "C++", "SQL", "Java"],
+      items: ["Python", "C", "C++", "C#", "Java", "R", "SQL"],
     },
     {
       category: "AI / ML",
-      items: ["PyTorch", "TensorFlow", "LangChain", "OpenAI", "HuggingFace", "RAG"],
+      items: ["TensorFlow", "Keras", "Deep Learning", "OpenAI", "RAG", "Azure LLM", "BERT"],
     },
     {
       category: "Frontend",
-      items: ["React", "Next.js", "Tailwind", "Framer Motion", "Three.js"],
+      items: ["React", "Bootstrap", "Streamlit", "Power BI"],
     },
     {
       category: "Backend",
-      items: ["Node.js", "Express", "FastAPI", "Flask", "REST", "WebSockets"],
+      items: ["Flask", "FastAPI", "Node.js", "tkinter", "REST", "SMTP", "Twilio"],
     },
     {
       category: "DevOps & Tools",
-      items: ["Docker", "Git", "GitHub Actions", "Vercel", "Linux", "Postman"],
+      items: ["GitHub", "Postman", "Canva", "Excel", "Jupyter", "n8n", "Zapier", "Airtable"],
     },
     {
       category: "Data",
-      items: ["PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis"],
+      items: ["MySQL", "Pandas", "NumPy", "SciPy", "Matplotlib", "Seaborn", "Beautiful Soup", "Selenium"],
     },
   ],
 
   projects: [
     {
-      title: "Vegha",
+      title: "AI DIY Project Generator & Evaluator",
       role: "Full-Stack & AI Lead",
       description:
-        "An AI-powered productivity platform that turns natural-language goals into actionable plans, calendars, and progress tracking — built end-to-end during a hackathon and iterated post-event.",
+        "An intelligent recruitment platform that matches resumes to job descriptions using NLP, semantic similarity scoring, and BERT-based contextual embeddings — built with a scalable FastAPI backend and responsive React frontend.",
       impact: [
-        "Designed multi-agent planner using LangChain + GPT-4",
-        "Built realtime collaborative UI with React + Supabase",
-        "Onboarded 200+ early users in the first two weeks",
+        "Designed NLP pipeline using BERT embeddings with spaCy preprocessing and cosine similarity for ranking",
+        "Enabled multi-resume uploads, job role classification, and match score generation",
+        "Built scalable FastAPI backend with a responsive React frontend",
       ],
-      tech: ["Next.js", "LangChain", "Supabase", "Tailwind", "OpenAI"],
-      links: { github: "https://github.com/vinayakyadav2709/vegha", live: "#" },
+      tech: ["Flask", "FastAPI", "React", "OpenRouter", "Gemini", "Whisper", "ScrapingDog"],
+      links: { github: "#", live: "#" },
     },
     {
-      title: "CivicConnect",
-      role: "Founding Engineer",
+      title: "911 Emergency Call Prediction",
+      role: "Data Scientist",
       description:
-        "A civic-tech platform connecting citizens with local representatives — featuring issue triage, geo-tagged complaints, and an AI summariser for incoming reports.",
+        "A geospatial ML system that analyses 5 years of 911 call data to predict future emergency hotspots, with an interactive Streamlit app generating PDF reports and maps.",
       impact: [
-        "Built complaint triage pipeline reducing manual review by 60%",
-        "Implemented geo-clustering with PostGIS",
-        "Recognised at MUJ HackX 3.0 (Runner-Up)",
+        "Cleaned 5 years of 911 call data (2015–2020) and performed EDA using Power BI",
+        "Used clustering (KL Divergence: 0.0001) and Folium-based geospatial modelling for hotspot prediction",
+        "Developed Streamlit app generating PDF reports and interactive maps for future emergencies",
       ],
-      tech: ["React", "FastAPI", "PostgreSQL", "PostGIS", "Mapbox"],
-      links: { github: "https://github.com/Sahil-Gupta-16/CivicConnect", live: "#" },
+      tech: ["Python", "Pandas", "scikit-learn", "Folium", "Power BI", "Streamlit"],
+      links: { github: "#", live: "#" },
     },
     {
-      title: "Deepfake Detection",
-      role: "ML Engineer",
+      title: "Stock Market Sentiment Analysis",
+      role: "Data Analyst",
       description:
-        "A computer-vision system that detects manipulated faces in video using a hybrid CNN + temporal-attention model with a lightweight web demo.",
+        "A real-time sentiment tracking system that scrapes live tweets on 10+ stock tickers, classifies sentiment using VADER, and visualises trends through Power BI dashboards.",
       impact: [
-        "Achieved 94% accuracy on FaceForensics++ subset",
-        "Optimised inference pipeline to run in <120ms/frame",
-        "Deployed Flask demo with live webcam scoring",
+        "Automated Selenium-based web scraping to collect and analyse 320+ live tweets",
+        "Applied VADER sentiment analysis — 51.56% positive, 36.25% neutral, 12.19% negative",
+        "Developed Power BI dashboards for sentiment trends, distribution, and keyword analysis",
       ],
-      tech: ["PyTorch", "OpenCV", "Flask", "Docker"],
-      links: { github: "https://github.com/Sahil-Gupta-16/MUJ", live: "#" },
+      tech: ["Python", "Selenium", "VADER", "Power BI"],
+      links: { github: "#", live: "#" },
     },
   ],
 
   achievements: [
     {
       rank: "Winner",
-      event: "Innovik 5.0",
+      event: "Datathon 2025",
       year: "2025",
-      description: "1st place out of 120+ teams — built an AI-powered solution for sustainable urban living.",
+      description: "1st place at ARTIMAS, Pune — solved a multi-class text classification task using TF-IDF, XGBoost, and an SGDClassifier pipeline.",
     },
     {
-      rank: "Runner-Up",
-      event: "MUJ HackX 3.0",
+      rank: "Certification",
+      event: "The Data Science Course: Complete Data Science Bootcamp 2025",
       year: "2025",
-      description: "2nd place at Manipal University Jaipur's flagship 36-hour national hackathon.",
+      description: "Completed a comprehensive data science bootcamp covering statistics, ML, and Python.",
     },
     {
-      rank: "2nd Runner-Up",
-      event: "CodeSlayer 2k25",
+      rank: "Certification",
+      event: "100 Days of Code: The Complete Python Pro Bootcamp",
       year: "2025",
-      description: "Top 3 finish in a competitive cross-college coding & product hackathon.",
+      description: "Completed 100 days of Python programming covering automation, web scraping, and data projects.",
     },
   ],
 
@@ -115,24 +115,24 @@ export const portfolio = {
     duration: "2023 — 2027",
     coursework: [
       "Data Structures & Algorithms",
-      "Operating Systems",
-      "DBMS",
-      "Computer Networks",
       "Machine Learning",
+      "Deep Learning",
+      "DBMS",
+      "Statistics",
       "Software Engineering",
     ],
   },
 
   leadership: [
     {
-      title: "Core Member, Sports Committee",
-      org: "SPIT",
-      description: "Organised inter-college tournaments and managed logistics for 500+ participants.",
+      title: "IIC Startup Coordinator",
+      org: "IIC SPIT",
+      description: "Manage and coordinate institutional events each quarter while preparing structured event reports.",
     },
     {
-      title: "Acquisition Arena, E-Cell",
-      org: "SPIT",
-      description: "Led sponsor outreach and partnership building for entrepreneurship events.",
+      title: "Data Analyst Intern",
+      org: "Strivepoint Capital, New York",
+      description: "Built AutoStockInsight using n8n and Azure LLM; supported investment research with dashboards, financial data automation, and factor models.",
     },
   ],
 } as const;

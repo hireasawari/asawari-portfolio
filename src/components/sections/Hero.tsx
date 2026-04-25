@@ -33,7 +33,7 @@ export const Hero = () => {
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] mb-4">
               <span className="text-gradient">Hi, I'm</span>{" "}
-              <span className="text-gradient-primary">Sahil Gupta</span>
+              <span className="text-gradient-primary">Asawari Hire</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-2">
@@ -43,9 +43,10 @@ export const Hero = () => {
             <p className="text-base md:text-lg text-foreground/80 mb-8 min-h-[1.75rem]">
               <Typewriter
                 words={[
-                  "I build AI-powered products.",
-                  "I ship full-stack experiences.",
-                  "I win hackathons for fun.",
+                  "I turn raw data into insights.",
+                  "I build AI-powered solutions.",
+                  "I won Datathon 2025 at ARTIMAS.",
+                  "I ship data-driven products.",
                 ]}
               />
             </p>

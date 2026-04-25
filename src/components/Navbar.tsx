@@ -18,7 +18,7 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("about");
   const [open, setOpen] = useState(false);
-  
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -38,10 +38,10 @@ export const Navbar = () => {
       setActive("");
       return;
     }
-    
+
     const sections = links.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
     if (!sections.length) return;
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,7 +50,7 @@ export const Navbar = () => {
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
     );
-    
+
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [location.pathname]);
@@ -86,7 +86,7 @@ export const Navbar = () => {
             <img src={config.logo} alt="Logo" className="w-full h-full object-cover" />
           </span>
           <span className="hidden sm:inline font-display font-semibold tracking-tight">
-            Sahil Gupta
+            Asawari Hire
           </span>
         </button>
 

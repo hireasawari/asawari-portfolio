@@ -2,59 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Sahil Gupta Portfolio — Soft Dark Design System
+/* Asawari Hire Portfolio — Dark Orange Design System
    All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Background anchored by surface (#131313) */
-    --background: 0 0% 7%;
-    --foreground: 213 30% 96%;
+    /* Background: near-black with subtle warm undertone */
+    --background: 20 8% 6%;
+    --foreground: 30 20% 95%;
 
-    /* Primary Accent: Electric Cyan (#00E5FF) */
-    --primary: 186 100% 50%;
-    --primary-foreground: 0 0% 7%;
+    /* Primary Accent: Rich Amber-Orange (#F97316 family) */
+    --primary: 28 95% 55%;
+    --primary-foreground: 20 8% 6%;
 
-    --card: 0 0% 15%; /* surface-container-high */
-    --card-foreground: 213 30% 96%;
+    --card: 20 8% 13%;
+    /* surface-container-high */
+    --card-foreground: 30 20% 95%;
 
-    --popover: 0 0% 12%; /* surface-container */
-    --popover-foreground: 213 30% 96%;
+    --popover: 20 8% 10%;
+    /* surface-container */
+    --popover-foreground: 30 20% 95%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 213 30% 96%;
+    --secondary: 20 8% 13%;
+    --secondary-foreground: 30 20% 95%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 215 20% 68%;
+    --muted: 20 8% 13%;
+    --muted-foreground: 25 15% 60%;
 
-    --accent: 186 100% 50%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 28 95% 55%;
+    --accent-foreground: 20 8% 6%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%; /* surface-container-high */
-    --input: 0 0% 15%;
-    --ring: 186 100% 50%;
+    --border: 20 8% 13%;
+    --input: 20 8% 13%;
+    --ring: 28 95% 55%;
 
     --radius: 1rem;
 
-    /* Surface Hierarchy */
-    --surface-container-lowest: 0 0% 4%;
-    --surface-container-low: 0 0% 10%;
-    --surface: 0 0% 7%; /* #131313 */
-    --surface-container: 0 0% 12%;
-    --surface-container-high: 0 0% 15%;
-    --surface-container-highest: 0 0% 18%;
+    /* Surface Hierarchy — warm-tinted near-blacks */
+    --surface-container-lowest: 20 8% 3%;
+    --surface-container-low: 20 8% 8%;
+    --surface: 20 8% 6%;
+    --surface-container: 20 8% 10%;
+    --surface-container-high: 20 8% 13%;
+    --surface-container-highest: 20 8% 16%;
 
     /* Glass */
-    --glass-bg: 0 0% 18% / 0.8; /* surface_container_highest at 80% opacity */
-    --glass-border: transparent; /* No 1px lines */
+    --glass-bg: 20 8% 16% / 0.8;
+    --glass-border: transparent;
 
-    /* Shadows */
-    --shadow-glow: 0 0 60px hsl(186 100% 50% / 0.35);
-    --shadow-glow-soft: 0 0 80px hsl(186 100% 50% / 0.18);
+    /* Shadows — orange glow */
+    --shadow-glow: 0 0 60px hsl(28 95% 55% / 0.45);
+    --shadow-glow-soft: 0 0 80px hsl(28 95% 55% / 0.22);
 
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -71,7 +73,10 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: 'Space Grotesk', 'Inter', sans-serif;
     letter-spacing: -0.02em;
   }
@@ -80,13 +85,16 @@
   ::-webkit-scrollbar {
     width: 10px;
   }
+
   ::-webkit-scrollbar-track {
     background: hsl(var(--surface-container-lowest));
   }
+
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--surface-container-high));
     border-radius: 999px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.6);
   }
@@ -124,6 +132,7 @@
   .glow-on-hover {
     transition: var(--transition-base);
   }
+
   .glow-on-hover:hover {
     box-shadow: var(--shadow-glow);
     transform: translateY(-2px);
@@ -133,8 +142,9 @@
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
+
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);

@@ -3,13 +3,13 @@ import { Float, Environment, Text, RoundedBox } from "@react-three/drei";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
 
-/* Deep navy palette — single hue family, no violet/teal */
-const NAVY = {
-  base: "#1e3a8a",      // deep navy
-  light: "#3b82f6",     // blue-500
-  pale: "#93c5fd",      // light blue
-  deep: "#0f1e4d",      // very deep navy
-  ice: "#bfdbfe",       // ice blue (highlights)
+/* Warm orange/amber palette */
+const ORANGE = {
+  base: "#9a3412",      // deep orange
+  light: "#f97316",     // bright orange
+  pale: "#fdba74",      // light orange
+  deep: "#431407",      // very deep brown/orange
+  ice: "#ffedd5",       // pale orange (highlights)
 };
 
 /* Floating code-bracket symbol < /> */
@@ -29,18 +29,18 @@ function CodeBracket({ position }: { position: [number, number, number] }) {
         <Text
           font={undefined}
           fontSize={1.4}
-          color={NAVY.pale}
+          color={ORANGE.pale}
           anchorX="center"
           anchorY="middle"
           letterSpacing={-0.05}
         >
           {"</>"}
           <meshPhysicalMaterial
-            color={NAVY.pale}
+            color={ORANGE.pale}
             roughness={0.3}
             metalness={0.4}
             clearcoat={0.8}
-            emissive={NAVY.light}
+            emissive={ORANGE.light}
             emissiveIntensity={0.15}
           />
         </Text>
@@ -68,7 +68,7 @@ function WireCube({ position, scale = 1 }: { position: [number, number, number];
         <mesh>
           <boxGeometry args={[0.7, 0.7, 0.7]} />
           <meshPhysicalMaterial
-            color={NAVY.base}
+            color={ORANGE.base}
             roughness={0.35}
             metalness={0.5}
             clearcoat={0.7}
@@ -78,7 +78,7 @@ function WireCube({ position, scale = 1 }: { position: [number, number, number];
         {/* Wireframe outer cube */}
         <mesh>
           <boxGeometry args={[1.05, 1.05, 1.05]} />
-          <meshBasicMaterial color={NAVY.light} wireframe transparent opacity={0.55} />
+          <meshBasicMaterial color={ORANGE.light} wireframe transparent opacity={0.55} />
         </mesh>
       </group>
     </Float>
@@ -98,7 +98,7 @@ function CardMesh({ position, rotation }: { position: [number, number, number]; 
       <group ref={ref} position={position} rotation={rotation}>
         <RoundedBox args={[1.6, 1.0, 0.12]} radius={0.12} smoothness={6}>
           <meshPhysicalMaterial
-            color={NAVY.deep}
+            color={ORANGE.deep}
             roughness={0.25}
             metalness={0.3}
             clearcoat={0.9}
@@ -109,14 +109,14 @@ function CardMesh({ position, rotation }: { position: [number, number, number]; 
         {[-0.55, -0.4, -0.25].map((x, i) => (
           <mesh key={i} position={[x, 0.32, 0.07]}>
             <circleGeometry args={[0.045, 24]} />
-            <meshBasicMaterial color={NAVY.pale} />
+            <meshBasicMaterial color={ORANGE.pale} />
           </mesh>
         ))}
         {/* Code lines */}
         {[0.1, -0.05, -0.2].map((y, i) => (
           <mesh key={`l${i}`} position={[0, y, 0.07]}>
             <planeGeometry args={[1.1 - i * 0.2, 0.04]} />
-            <meshBasicMaterial color={NAVY.light} transparent opacity={0.55 - i * 0.1} />
+            <meshBasicMaterial color={ORANGE.light} transparent opacity={0.55 - i * 0.1} />
           </mesh>
         ))}
       </group>
@@ -140,7 +140,7 @@ function NodeSphere({ position, scale = 1 }: { position: [number, number, number
       <mesh ref={ref} position={position} scale={scale}>
         <icosahedronGeometry args={[0.55, 1]} />
         <meshPhysicalMaterial
-          color={NAVY.base}
+          color={ORANGE.base}
           roughness={0.3}
           metalness={0.55}
           clearcoat={0.8}
@@ -171,7 +171,7 @@ function Constellation() {
       {dots.map((p, i) => (
         <mesh key={i} position={p}>
           <sphereGeometry args={[0.04, 8, 8]} />
-          <meshBasicMaterial color={NAVY.ice} transparent opacity={0.7} />
+          <meshBasicMaterial color={ORANGE.ice} transparent opacity={0.7} />
         </mesh>
       ))}
     </group>
@@ -188,9 +188,9 @@ export const HeroScene = () => {
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={1.0} color={NAVY.ice} />
-        <pointLight position={[-4, -2, -3]} intensity={1.2} color={NAVY.light} />
-        <pointLight position={[3, 3, 2]} intensity={0.8} color={NAVY.pale} />
+        <directionalLight position={[5, 5, 5]} intensity={1.0} color={ORANGE.ice} />
+        <pointLight position={[-4, -2, -3]} intensity={1.2} color={ORANGE.light} />
+        <pointLight position={[3, 3, 2]} intensity={0.8} color={ORANGE.pale} />
 
         <CodeBracket position={[-2.2, 0.8, 0]} />
         <WireCube position={[2.3, 0.6, -0.5]} scale={0.95} />

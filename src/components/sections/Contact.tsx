@@ -7,8 +7,8 @@ import { Download, Github, Linkedin, Mail, Phone } from "lucide-react";
 const items = [
   { icon: Mail, label: "Email", value: portfolio.email, href: `mailto:${portfolio.email}` },
   { icon: Phone, label: "Phone", value: portfolio.phone, href: `tel:${portfolio.phone.replace(/\s/g, "")}` },
-  { icon: Linkedin, label: "LinkedIn", value: "in/sahilgupta", href: portfolio.linkedin, external: true },
-  { icon: Github, label: "GitHub", value: "@sahilgupta", href: portfolio.github, external: true },
+  { icon: Linkedin, label: "LinkedIn", value: "in/asawari-hire", href: portfolio.linkedin, external: true },
+  { icon: Github, label: "GitHub", value: "@AsawariHire", href: portfolio.github, external: true },
 ];
 
 export const Contact = () => {
