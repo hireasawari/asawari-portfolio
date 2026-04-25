@@ -1,3 +1,4 @@
+// ─── Dev Project Types ────────────────────────────────────────────────────────
 export interface ProjectDetails {
   overview: string;
   motivation: string;
@@ -12,6 +13,21 @@ export interface ProjectDetails {
   demo: string;
 }
 
+// ─── Design / UI-UX Project Types ────────────────────────────────────────────
+export interface DesignProjectDetails {
+  overview: string;
+  problem: string[];
+  designProcess: { label: string; description: string }[];
+  solution: string[];
+  designHighlights: string[];
+  screens: { src: string; label: string; description: string }[];
+  beforeAfter?: { before: string; after: string; label: string }[];
+  prototype: string;
+  figma: string;
+  github: string;
+}
+
+// ─── Unified Project ──────────────────────────────────────────────────────────
 export interface Project {
   id: string;
   title: string;
@@ -20,7 +36,8 @@ export interface Project {
   thumbnail: string;
   featured: boolean;
   visible: boolean;
-  details: ProjectDetails;
+  type?: "dev" | "design";
+  details: ProjectDetails | DesignProjectDetails;
 }
 
 export const projectsData: Project[] = [
@@ -32,6 +49,7 @@ export const projectsData: Project[] = [
     thumbnail: "/images/vegha/thumbnail.png",
     featured: true,
     visible: true,
+    type: "dev",
     details: {
       overview: "Vegha is an AI-driven smart traffic control system designed to optimize signal timings dynamically based on real-time traffic conditions. It replaces traditional fixed-timer systems with adaptive decision-making using reinforcement learning.",
       motivation: "Urban traffic congestion is a growing problem, and traditional traffic lights operate on static timing rules that fail to adapt to real-time conditions. I wanted to build a system that could learn and respond dynamically to changing traffic patterns.",
@@ -48,7 +66,7 @@ export const projectsData: Project[] = [
       ],
       github: "https://github.com/Sahil-Gupta-16/FDRL_Traffic",
       demo: ""
-    }
+    } as ProjectDetails
   },
   {
     id: "deepfake-detection",
@@ -58,6 +76,7 @@ export const projectsData: Project[] = [
     thumbnail: "/images/deepfake/thumbnail.png",
     featured: true,
     visible: true,
+    type: "dev",
     details: {
       overview: "This project is a multi-model AI system designed to detect deepfake videos by analyzing both spatial and temporal features. It combines multiple deep learning architectures to improve detection accuracy and robustness.",
       motivation: "With the rise of AI-generated content, deepfakes pose a serious threat to digital trust and misinformation. I wanted to build a system capable of identifying manipulated videos reliably across different scenarios.",
@@ -74,7 +93,7 @@ export const projectsData: Project[] = [
       ],
       github: "https://github.com/your-repo-link",
       demo: ""
-    }
+    } as ProjectDetails
   },
   {
     id: "civicconnect",
@@ -84,6 +103,7 @@ export const projectsData: Project[] = [
     thumbnail: "/images/civicconnect/thumbnail.png",
     featured: true,
     visible: true,
+    type: "dev",
     details: {
       overview: "CivicConnect is a smart platform that enables citizens to report civic issues such as potholes, garbage, and infrastructure problems, while using AI to categorize and route them to the appropriate authorities.",
       motivation: "Civic issue reporting systems are often slow, inefficient, and lack transparency. I wanted to create a system that empowers citizens and improves communication between the public and municipal authorities.",
@@ -100,6 +120,63 @@ export const projectsData: Project[] = [
       ],
       github: "https://github.com/Sahil-Gupta-16/CivicConnect",
       demo: ""
-    }
+    } as ProjectDetails
+  },
+  {
+    id: "burger-king-redesign",
+    title: "Burger King App Redesign – UI/UX Case Study",
+    shortDescription: "A complete redesign of the Burger King mobile app focusing on usability, visual hierarchy, and a smoother ordering experience.",
+    techStack: ["Figma", "UI/UX Design", "User Research", "Prototyping", "Design Systems"],
+    thumbnail: "/images/bk/thumbnail.png",
+    featured: true,
+    visible: true,
+    type: "design",
+    details: {
+      overview: "This project is a UI/UX redesign of the Burger King mobile application aimed at improving usability, simplifying navigation, and enhancing the overall ordering experience. The redesign focuses on modern design principles, better visual hierarchy, and a smoother user journey.",
+
+      problem: [
+        "Cluttered interface with poor visual hierarchy making it hard to find items",
+        "Confusing navigation flow with too many steps to complete an order",
+        "Lack of clear call-to-action buttons leading to abandoned carts",
+        "Inconsistent design language and typography across screens",
+        "Poor mobile usability and limited accessibility support"
+      ],
+
+      designProcess: [
+        { label: "Research",      description: "Conducted heuristic analysis of the existing app and identified key user pain points through competitive benchmarking." },
+        { label: "Wireframes",    description: "Created low-fidelity wireframes to restructure the layout and simplify the core ordering flow." },
+        { label: "UI Design",     description: "Designed high-fidelity screens with improved visual hierarchy, spacing, and a consistent design system." },
+        { label: "Prototyping",   description: "Built an interactive prototype in Figma to validate the new user flow end-to-end." },
+        { label: "Iteration",     description: "Refined designs based on feedback, focusing on micro-interactions and edge cases in the ordering flow." }
+      ],
+
+      solution: [
+        "Introduced a clean and minimal interface that highlights food imagery",
+        "Streamlined navigation with clear sections and persistent bottom tab bar",
+        "Enhanced call-to-action visibility with high-contrast primary buttons",
+        "Standardized design system — spacing, typography, and color tokens",
+        "Optimized touch targets and layout for one-handed mobile use"
+      ],
+
+      designHighlights: [
+        "Modern minimal visual design with bold food photography",
+        "Improved accessibility with WCAG-compliant contrast ratios",
+        "Reduced steps to checkout from 6 to 3",
+        "Consistent component library for scalability",
+        "Mobile-first with responsive layout considerations"
+      ],
+
+      screens: [
+        { src: "/images/bk/screen1.png", label: "Home Screen",      description: "Redesigned home screen with featured items, quick access categories, and a cleaner hero banner." },
+        { src: "/images/bk/screen2.png", label: "Menu & Browse",    description: "Restructured menu layout with sticky category tabs and better item cards for faster browsing." },
+        { src: "/images/bk/screen3.png", label: "Item Detail",      description: "Full-screen product view with clear customization options and a prominent add-to-cart button." },
+        { src: "/images/bk/screen4.png", label: "Cart & Checkout",  description: "Simplified cart experience with order summary, applied offers, and a single-tap checkout flow." },
+        { src: "/images/bk/screen5.png", label: "Order Tracking",   description: "Live order tracking screen with animated status updates and estimated delivery time." }
+      ],
+
+      prototype: "",
+      figma: "",
+      github: ""
+    } as DesignProjectDetails
   }
 ];
