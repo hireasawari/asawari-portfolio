@@ -223,18 +223,37 @@ function ScreenRow({ screen, index, onPreview }: { screen: DesignScreen; index: 
     <motion.div ref={ref} initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
       <div className="w-full h-px bg-white/5 mb-10" />
-      {/* Always: Before on left, arrow in center, After on right */}
-      <div className="grid md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 items-start">
-        {beforeCol}
-        {/* Arrow divider */}
-        <div className="hidden md:flex flex-col items-center self-stretch gap-2 py-16">
-          <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
-          <div className="grid h-8 w-8 place-items-center rounded-full border shrink-0" style={{ background: `${BK}18`, borderColor: `${BK}40` }}>
-            <ArrowRight className="h-4 w-4" style={{ color: BK }} />
-          </div>
-          <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
+      {/* Row wrapper with subtle per-screen background */}
+      <div className="relative rounded-3xl px-4 md:px-8 py-6 overflow-hidden">
+        {/* Ambient glow — alternates side per row */}
+        <div
+          className={`absolute top-1/2 -translate-y-1/2 ${index % 2 === 0 ? "left-[-8%]" : "right-[-8%]"} w-[55%] h-full rounded-full blur-[90px] pointer-events-none`}
+          style={{ background: `radial-gradient(ellipse, ${BK}12 0%, transparent 70%)` }}
+        />
+        {/* Faint outlined screen number watermark behind phones */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] md:text-[220px] font-display font-black select-none pointer-events-none leading-none"
+          style={{ WebkitTextStroke: "1px rgba(255,255,255,0.025)", color: "transparent" }}
+        >
+          {String(index + 1).padStart(2, "0")}
         </div>
-        {afterCol}
+        {/* Subtle horizontal scan lines across the row */}
+        <div className="absolute inset-0 opacity-[0.018] pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 28px)" }} />
+        {/* Edge vignette */}
+        <div className="absolute inset-0 rounded-3xl pointer-events-none" style={{ boxShadow: `inset 0 0 60px 10px rgba(0,0,0,0.25)` }} />
+        {/* Always: Before on left, arrow in center, After on right */}
+        <div className="relative z-10 grid md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 items-start">
+          {beforeCol}
+          {/* Arrow divider */}
+          <div className="hidden md:flex flex-col items-center self-stretch gap-2 py-16">
+            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
+            <div className="grid h-8 w-8 place-items-center rounded-full border shrink-0" style={{ background: `${BK}18`, borderColor: `${BK}40` }}>
+              <ArrowRight className="h-4 w-4" style={{ color: BK }} />
+            </div>
+            <div className="flex-1 w-px bg-gradient-to-b from-transparent via-[#D62300]/20 to-transparent" />
+          </div>
+          {afterCol}
+        </div>
       </div>
     </motion.div>
   );
@@ -358,10 +377,10 @@ const BKCaseStudyPage = () => {
               <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="flex justify-center">
                 <motion.div animate={{ y: [0, -14, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                  <PhoneFrame 
-                    src="/images/bk/screen_landing.png" 
+                  <PhoneFrame
+                    src="/images/bk/screen_landing.png"
                     label="Landing Screen"
-                    onClick={() => setLightbox({ src: "/images/bk/screen_landing.png", label: "Landing Screen", description: "", improved: [] })} 
+                    onClick={() => setLightbox({ src: "/images/bk/screen_landing.png", label: "Landing Screen", description: "", improved: [] })}
                   />
                 </motion.div>
               </motion.div>
@@ -429,16 +448,32 @@ const BKCaseStudyPage = () => {
           {/* ── Screen Showcase ────────────────────────────────────────── */}
           <section className="relative">
             {/* Background decoration */}
-            <div className="absolute inset-0 -mx-6 md:-mx-12 rounded-3xl overflow-hidden pointer-events-none" aria-hidden="true">
-              <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 20% 50%, ${BK}08 0%, transparent 55%), radial-gradient(circle at 80% 20%, ${BK}06 0%, transparent 45%)` }} />
-              <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `linear-gradient(${BK}40 1px, transparent 1px), linear-gradient(90deg, ${BK}40 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
+            <div className="absolute inset-0 -mx-6 md:-mx-12 rounded-3xl overflow-hidden pointer-events-none flex items-center justify-center" aria-hidden="true">
+              {/* Huge subtle typography watermark pattern */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[8deg] w-[200%] flex flex-col gap-12 md:gap-24 text-[12vw] md:text-[130px] font-display font-black whitespace-nowrap text-white/[0.015] select-none pointer-events-none leading-none">
+                <div className="ml-[-5%]">BURGER KING •   • BURGER KING •   • BURGER KING •   • BURGER KING</div>
+                <div className="ml-[-15%] text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.03)" }}>UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY</div>
+                <div className="ml-[-2%]">BURGER KING •   • BURGER KING •   • BURGER KING •   • BURGER KING</div>
+                <div className="ml-[-20%] text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.03)" }}>UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY</div>
+                <div className="ml-[-8%]">BURGER KING •   • BURGER KING •   • BURGER KING •   • BURGER KING</div>
+                <div className="ml-[-12%] text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.03)" }}>UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY • APP REDESIGN • UI/UX CASE STUDY</div>
+                <div className="ml-[-4%]">BURGER KING •   • BURGER KING •   • BURGER KING •   • BURGER KING</div>
+              </div>
+              {/* Ambient glowing orbs */}
+              <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] opacity-20" style={{ background: BK }} />
+              <div className="absolute bottom-[20%] right-[-5%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-10" style={{ background: BK }} />
+              <div className="absolute top-[60%] left-[20%] w-[400px] h-[400px] rounded-full blur-[100px] opacity-[0.15]" style={{ background: "#FF8732" }} />
+              {/* Grid pattern */}
+              <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `linear-gradient(${BK}80 1px, transparent 1px), linear-gradient(90deg, ${BK}80 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
+              {/* Fade out edges of grid */}
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
             </div>
             <div className="w-full h-px bg-white/5 mb-10" />
-            <div className="flex items-center gap-3 mb-12">
+            <div className="relative z-10 flex items-center gap-3 mb-12">
               <div className="grid h-10 w-10 place-items-center rounded-xl border shrink-0" style={{ background: `${BK}12`, borderColor: `${BK}25` }}>
                 <Sparkles className="h-5 w-5" style={{ color: BK }} />
               </div>
-              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-[0.12em]">Screen Showcase</h2>
+              <span className="text-2xl md:text-3xl font-black uppercase tracking-[0.12em]" style={{ color: "whitesmoke" }}>Screen Showcase</span>
               <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border" style={{ color: BK, background: `${BK}12`, borderColor: `${BK}25` }}>Section 04</span>
             </div>
             <div className="space-y-16 relative z-10">
