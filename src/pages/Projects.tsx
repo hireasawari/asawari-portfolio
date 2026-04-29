@@ -98,7 +98,7 @@ function ProjectCard({
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────────
-const ProjectsPage = () => {
+const Projects = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -236,4 +236,4 @@ const ProjectsPage = () => {
   );
 };
 
-export default ProjectsPage;
+export default Projects;
