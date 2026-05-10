@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import Projects from "./pages/Projects.tsx";
 import ProjectDetailPage from "./pages/ProjectDetailPage.tsx";
 import BKCaseStudyPage from "./pages/BKCaseStudyPage.tsx";
+import DigilockerCaseStudyPage from "./pages/DigilockerCaseStudyPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/burger-king-redesign" element={<BKCaseStudyPage />} />
+          <Route path="/projects/digilocker-redesign" element={<DigilockerCaseStudyPage />} />
           <Route path="/projects/:id" element={<ProjectDetailPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
