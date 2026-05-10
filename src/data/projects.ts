@@ -131,13 +131,117 @@ export const projectsData: Project[] = [
     } as ProjectDetails
   },
   {
+    id: "digilocker-redesign",
+    title: "DigiLocker App Redesign – UI/UX Case Study",
+    shortDescription: "A comprehensive redesign of the DigiLocker mobile app focusing on improved usability, modern design, and enhanced document management experience.",
+    techStack: ["Figma", "UI/UX Design", "User Research", "Prototyping", "Design Systems"],
+    thumbnail: "/images/digilocker/home.png",
+    featured: false,
+    visible: true,
+    type: "design",
+    details: {
+      overview: "This project is a UI/UX redesign of the DigiLocker mobile application, India's official digital document locker service. The redesign aims to modernize the interface, improve navigation, and make document access more intuitive and user-friendly.",
+
+      problem: [
+        "Outdated interface with poor visual hierarchy and cluttered layouts",
+        "Confusing navigation structure making it hard to find documents quickly",
+        "Lack of modern touch interactions and accessibility features",
+        "Inefficient search functionality for large document collections",
+        "Settings buried deep in menus with poor discoverability"
+      ],
+
+      designProcess: [
+        { label: "User Research", description: "Conducted surveys and usability testing with DigiLocker users to identify pain points and user needs." },
+        { label: "Wireframing", description: "Created low-fidelity wireframes to reorganize information architecture and simplify core workflows." },
+        { label: "Visual Design", description: "Designed high-fidelity screens with a clean, modern aesthetic inspired by Material Design principles." },
+        { label: "Prototyping", description: "Built interactive prototypes to test user flows and gather feedback on the redesigned experience." },
+        { label: "Testing", description: "Iterated on designs based on user feedback, focusing on accessibility and performance improvements." }
+      ],
+
+      solution: [
+        "Implemented a clean, card-based layout for better document organization",
+        "Streamlined navigation with bottom tabs and clear categorization",
+        "Enhanced search with filters and predictive suggestions",
+        "Modernized settings with quick-access toggles and organized sections",
+        "Improved accessibility with proper contrast ratios and larger touch targets"
+      ],
+
+      designHighlights: [
+        "Modern minimalist design with India's tricolor-inspired color scheme",
+        "Improved accessibility with WCAG 2.1 AA compliance",
+        "Reduced navigation steps by 40% for common tasks",
+        "Enhanced document preview and sharing capabilities",
+        "Mobile-first responsive design for all screen sizes"
+      ],
+
+      screens: [
+        {
+          src: "/images/digilocker/home.png",
+          before: "/images/digilocker/before/home.jpeg",
+          label: "Home Screen",
+          description: "Redesigned home screen with quick access to recent documents, issued certificates, and important notifications in a clean, organized layout.",
+          improved: [
+            "Organized documents into categorized cards for better scannability",
+            "Added quick action buttons for common tasks like issuing new documents",
+            "Integrated notifications panel to surface important updates",
+            "Improved visual hierarchy with larger headings and better spacing",
+            "Added search bar prominently at the top for instant access"
+          ]
+        },
+        {
+          src: "/images/digilocker/search.png",
+          before: "/images/digilocker/before/search.jpeg",
+          label: "Search & Filter",
+          description: "Enhanced search interface with advanced filters, recent searches, and intelligent suggestions to help users find documents quickly and efficiently.",
+          improved: [
+            "Implemented advanced filtering options by document type and issuer",
+            "Added recent searches and popular queries for quick access",
+            "Introduced smart suggestions based on user behavior",
+            "Improved search results layout with thumbnails and metadata",
+            "Added voice search capability for hands-free operation"
+          ]
+        },
+        {
+          src: "/images/digilocker/documents.png",
+          before: "/images/digilocker/before/document.jpeg",
+          label: "Documents View",
+          description: "Restructured documents screen with grid view, sorting options, and batch operations for better document management and organization.",
+          improved: [
+            "Switched to grid layout for better document visualization",
+            "Added sorting and filtering options for document management",
+            "Implemented batch selection for multiple document operations",
+            "Enhanced document preview with zoom and share options",
+            "Added document expiry notifications and renewal reminders"
+          ]
+        },
+        {
+          src: "/images/digilocker/settings.png",
+          before: "/images/digilocker/before/settings.jpeg",
+          label: "Settings & Profile",
+          description: "Streamlined settings page with organized sections, quick toggles, and easy access to account management features.",
+          improved: [
+            "Grouped settings into logical categories with clear headings",
+            "Added quick toggle switches for common preferences",
+            "Improved account management with profile picture and verification status",
+            "Enhanced security settings with biometric options",
+            "Added help and support section with FAQs and contact options"
+          ]
+        }
+      ],
+
+      prototype: "",
+      figma: "",
+      github: ""
+    } as DesignProjectDetails
+  },
+  {
     id: "burger-king-redesign",
     title: "Burger King App Redesign – UI/UX Case Study",
     shortDescription: "End-to-end mobile app redesign for Burger King, targeting clearer navigation, stronger visual hierarchy, and a friction-free ordering flow.",
     techStack: ["Figma", "UI/UX Design", "User Research", "Prototyping", "Design Systems"],
     thumbnail: "/images/bk/thumbnail.png",
     featured: true,
-    visible: true,
+    visible: false,
     type: "design",
     details: {
       overview: "A ground-up UI/UX overhaul of the Burger King mobile app, centered on cutting friction from the ordering journey. The work addressed structural navigation issues, inconsistent visual language, and weak information hierarchy — replacing them with a focused, modern experience built around clear user intent.",
